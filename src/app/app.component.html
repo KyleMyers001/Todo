@@ -8,7 +8,7 @@
   <br />
   <br />
   <ul class="list-group">
-    <li class="list-group-item" *ngFor="let item of list">
+    <li class="list-group-item" *ngFor="let item of list | async">
       <input id="txtName_{{item.id}}" type="text" value="{{item.name}}" disabled />
       <button class="glyphicon glyphicon-pencil btn btn-info pull-right" (click)="toggleTextBox('#txtName_' + item.id);"></button>
       <button class="btn btn-danger glyphicon glyphicon-minus pull-right" (click)="deleteItem(item);"></button>

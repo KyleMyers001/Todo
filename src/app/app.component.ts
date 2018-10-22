@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AppService } from './app.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ import { AppService } from './app.service';
 
 export class AppComponent {
   title = 'todo';
-  list: Item[];
+  list: Observable<Item[]>;
   addItemContainer: any;
   idCounter: number;
 
@@ -19,14 +20,10 @@ export class AppComponent {
     window.onload = this.assignInputBehavior;
   }
 
-  forEach(list, func): void {
-    Array.prototype.forEach.call(list, func);
-  }
-
   assignInputBehavior(): void {
     const inputs = document.querySelectorAll('.list-group input[type="text"]');
     const self = this;
-    this.forEach(inputs, (input) => {
+    Array.prototype.forEach.call(inputs, (input) => {
       input.onkeypress = function(e) {
         if (e.keyCode === 13) {
           var selector = '#' + input.id;
@@ -37,23 +34,23 @@ export class AppComponent {
     });
   }
 
-  deleteItem(item): void {
-    for (let i = 0; i < this.list.length; i++) {
-      if (this.list[i] === item) {
-        this.list.splice(i, 1);
-        return;
-      }
-    }
-  }
-
-  addItemToList(name): boolean {
-    const item = new Item;
-    item.id = this.idCounter;
-    item.name = name;
-    this.list.push(item);
-    this.idCounter += 1;
-    return false;
-  }
+  // deleteItem(item): void {
+  //   for (let i = 0; i < this.list.length; i++) {
+  //     if (this.list[i] === item) {
+  //       this.list.splice(i, 1);
+  //       return;
+  //     }
+  //   }
+  // }
+  //
+  // addItemToList(name): boolean {
+  //   const item = new Item;
+  //   item.id = this.idCounter;
+  //   item.name = name;
+  //   this.list.push(item);
+  //   this.idCounter += 1;
+  //   return false;
+  // }
 
   saveTextBox(): void {
 

@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -6,16 +8,14 @@ import { Injectable } from '@angular/core';
 
 export class AppService {
   data: string;
-  getToDoList() {
-    return [
-      {
-        id: 1,
-        name: 'Take out trash'
-      },
-      {
-        id: 2,
-        name: 'Go to movies'
-      }
-    ]
+  constructor(private http: HttpClient) {}
+
+  getToDoList(): Observable<Item[]> {
+    return this.http.get<Item[]>('http://localhost:3000/webapi/getTodoList');
   }
+}
+
+class Item {
+  id: number;
+  name: string;
 }
