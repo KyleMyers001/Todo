@@ -6,11 +6,12 @@ gulp.task('start-angular-app', () => {
 });
 
 gulp.task('start-web-api', () => {
-  return run('node src/webapi/index.js').exec();
+  return run('nodemon src/webapi/index.js').exec();
 });
 
-gulp.task('serve', ['start-angular-app', 'start-web-api'], () => {
-  gulp.start(['start-angular-app', 'start-web-api']);
+gulp.task('serve', () => {
+  gulp.start('start-web-api');
+  gulp.start('start-angular-app');
 });
 
-gulp.task('default', ['start-angular-app']);
+gulp.task('default', ['serve']);

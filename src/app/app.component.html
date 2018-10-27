@@ -8,15 +8,15 @@
   <br />
   <br />
   <ul class="list-group">
-    <li class="list-group-item" *ngFor="let item of list | async">
+    <li class="list-group-item" *ngFor="let item of list">
       <input id="txtName_{{item.id}}" type="text" value="{{item.name}}" disabled />
       <button class="glyphicon glyphicon-pencil btn btn-info pull-right" (click)="toggleTextBox('#txtName_' + item.id);"></button>
       <button class="btn btn-danger glyphicon glyphicon-minus pull-right" (click)="deleteItem(item);"></button>
     </li>
   </ul>
-  <form id="addForm" class="hidden" (submit)="addItemToList(item.value);">
+  <form id="addForm" class="hidden" (submit)="addTodoItem(item.value);">
     <div class="form-group">
-      <input type="text" class="form-control" #item />
+      <input id="addItemInput" type="text" class="form-control" #item />
       <br />
       <button type="submit" class="btn btn-primary btn-lg">Add</button>
     </div>

@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const cors = require('cors');
 const app = express();
-console.log('Running web api');
+const dataFile = path.join(__dirname, '../data/data.json');
 
 const corsOptions = {
   origin: 'http://localhost:4200',
@@ -19,12 +19,17 @@ app.listen(3000, () => {
 });
 
 app.get('/webapi/getTodoList', (req, res) => {
-  const data = require('../data/data.json');
-  res.send(data.items);
+  fs.readFile(dataFile, 'utf8', function(err, data) {
+    if (err)
+      throw err;
+    const obj = JSON.parse(data);
+    res.send(obj.items);
+  });
 });
 
 app.post('/webapi/addTodoItem', (req, res) => {
   if (!req.body || !req.body.name) return res.sendStatus(400);
+  console.log('worked so far');
   var item = {
     name: req.body.name
   }
@@ -33,7 +38,7 @@ app.post('/webapi/addTodoItem', (req, res) => {
 });
 
 app.post('/webapi/updateTodoItem', (req, res) => {
-  if (!req.body || !req.body.id || !req.body.name) return res.sendStatus(400);
+  if (!req.body || !req.body.name) return res.sendStatus(400);
   var item = {
     id: Number(req.body.id),
     name: req.body.name
@@ -43,6 +48,7 @@ app.post('/webapi/updateTodoItem', (req, res) => {
 });
 
 app.delete('/webapi/deleteTodoItem', (req, res) => {
+  console.log('delete');
   if (!req.body || !req.body.id) return res.sendStatus(400);
   console.log('delete');
   var id = Number(req.body.id);
@@ -56,7 +62,6 @@ app.get('/testForm', (req, res) => {
   res.sendFile(thePath);
 });
 
-const dataFile = path.join(__dirname, '../data/data.json');
 const addTodoItem = (item) => {
   fs.readFile(dataFile, 'utf8', (err, data) => {
     if (err) {

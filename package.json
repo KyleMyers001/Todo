@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "webapi": "node src/webapi/index.js",
+    "webapi": "nodemon src/webapi/index.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
