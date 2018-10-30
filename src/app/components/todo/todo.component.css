@@ -1,0 +1,15 @@
+.list-group-item button {
+  margin-left: 4px;
+}
+
+input[type="text"] {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 6px;
+}
+
+input[type="text"]:disabled {
+  border: none;
+  cursor: text;
+}

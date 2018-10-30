@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { AjaxService } from './ajax.service';
+import AjaxService from './ajax.service';
+import Item from '../classes/Item';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class AppService {
+class TodoService {
   data: string;
   constructor(private http: HttpClient, private ajaxService: AjaxService) { }
 
@@ -31,7 +32,4 @@ export class AppService {
   }
 }
 
-class Item {
-  id: number;
-  name: string;
-}
+export default TodoService;

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 
-export class AjaxService {
+class AjaxService {
   data: string;
   constructor() { }
 
@@ -38,3 +38,5 @@ export class AjaxService {
     });
   }
 }
+
+export default AjaxService;

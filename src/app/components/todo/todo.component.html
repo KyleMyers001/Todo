@@ -1,0 +1,33 @@
+<div class="container">
+  <br>
+  <br>
+  <h1 class="text-center">Todo List App</h1>
+  <form id="addForm" (submit)="addTodoItem(item.value);">
+    <div id="addFormFields" [ngClass]="{'invisible': !showForm }">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <button id="addItemSubmit" type="submit" class="btn btn-primary" type="button">Add</button>
+        </div>
+        <input id="addItemInput" name="addItemInput" type="text" class="form-control" placeholder="Enter the title" #item />
+      </div>
+    </div>
+    <br>
+  </form>
+  <button class="btn btn-success" (click)="showAddForm();">
+    <i class="far fa-plus"></i>
+  </button>
+  <br>
+  <br>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let item of list">
+      <input id="txtName_{{item.id}}" type="text" value="{{item.name}}" disabled />
+      <button class="btn btn-info float-right" (click)="toggleTextBox('#txtName_' + item.id);">
+        <i class="fal fa-edit"></i>
+      </button>
+      <button class="btn btn-danger float-right" (click)="deleteItem(item);">
+        <i class="fal fa-trash-alt"></i>
+      </button>
+    </li>
+  </ul>
+  <br>
+</div>
