@@ -20,7 +20,7 @@
   <br>
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let item of list">
-      <input id="txtName_{{item.id}}" type="text" value="{{item.name}}" disabled />
+      <input id="txtName_{{item.id}}" type="text" value="{{item.name}}" (keypress)="updateTodoItem($event, item);" disabled />
       <button class="btn btn-info float-right" (click)="toggleTextBox('#txtName_' + item.id);">
         <i class="fal fa-edit"></i>
       </button>

@@ -29,7 +29,7 @@ app.get('/webapi/getTodoList', (req, res) => {
 
 app.post('/webapi/addTodoItem', (req, res) => {
   if (!req.body || !req.body.name) return res.sendStatus(400);
-  console.log('worked so far');
+
   var item = {
     name: req.body.name
   }
@@ -38,7 +38,7 @@ app.post('/webapi/addTodoItem', (req, res) => {
 });
 
 app.post('/webapi/updateTodoItem', (req, res) => {
-  if (!req.body || !req.body.name) return res.sendStatus(400);
+  if (!req.body || !req.body.name || !req.body.id) return res.sendStatus(400);
   var item = {
     id: Number(req.body.id),
     name: req.body.name
@@ -48,9 +48,7 @@ app.post('/webapi/updateTodoItem', (req, res) => {
 });
 
 app.delete('/webapi/deleteTodoItem', (req, res) => {
-  console.log('delete');
   if (!req.body || !req.body.id) return res.sendStatus(400);
-  console.log('delete');
   var id = Number(req.body.id);
   deleteTodoItem(id);
   res.send(201, req.body);

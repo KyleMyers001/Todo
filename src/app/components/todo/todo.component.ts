@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import TodoService from '../../services/todo.service';
 import Item from '../../classes/Item';
-import { runInDebugContext } from 'vm';
 
 @Component({
   selector: 'app-todo',
@@ -20,29 +19,20 @@ export class TodoComponent {
       });
     });
     window.onload = this.assignInputBehavior.bind(this, this);
-
     this.showForm = false;
   }
 
   assignInputBehavior(instance): void {
     const inputs = document.querySelectorAll('.list-group input[type="text"]');
-    Array.prototype.forEach.call(inputs, (input) => {
-      input.onkeypress = function (e) {
-        if (e.keyCode === 13) {
-          const textbox = <HTMLInputElement>document.querySelector('#' + input.id);
-          const name = textbox.value;
-          const id = Number(textbox.id.split("_")[1]);
-          const item = new Item(id, name);
-          instance.toggleTextBox('#' + input.id);
-          instance.updateTodoItem(item);
-        }
-      };
-    });
   }
 
-
-  updateTodoItem(item): void {
-    this.todoService.updateTodoItem(item);
+  updateTodoItem(e, item) {
+    if (e.key.toLowerCase() === 'enter') {
+      const textbox = e.target;
+      textbox.toggleAttribute('disabled');
+      item.name = textbox.value;
+      this.todoService.updateTodoItem(item);
+    }
   }
 
   deleteItem(item): void {
@@ -63,10 +53,6 @@ export class TodoComponent {
     var input = <HTMLInputElement>document.querySelector('#addItemInput');
     input.value = '';
     return false;
-  }
-
-  saveTextBox(): void {
-
   }
 
   toggleTextBox(selector): void {
