@@ -47,7 +47,7 @@ app.post('/webapi/updateTodoItem', (req, res) => {
   res.send(201, req.body);
 });
 
-app.delete('/webapi/deleteTodoItem', (req, res) => {
+app.post('/webapi/deleteTodoItem', (req, res) => {
   if (!req.body || !req.body.id) return res.sendStatus(400);
   var id = Number(req.body.id);
   deleteTodoItem(id);

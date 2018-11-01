@@ -14,16 +14,9 @@ export class TodoComponent {
   constructor(private todoService: TodoService) {
     this.list = new Array();
     todoService.getTodoList().subscribe((data) => {
-      data.forEach((item) => {
-        this.list.push(item);
-      });
+      this.list = data;
     });
-    window.onload = this.assignInputBehavior.bind(this, this);
     this.showForm = false;
-  }
-
-  assignInputBehavior(instance): void {
-    const inputs = document.querySelectorAll('.list-group input[type="text"]');
   }
 
   updateTodoItem(e, item) {
@@ -31,12 +24,16 @@ export class TodoComponent {
       const textbox = e.target;
       textbox.toggleAttribute('disabled');
       item.name = textbox.value;
-      this.todoService.updateTodoItem(item);
+      this.todoService.updateTodoItem(item).subscribe((data) => {
+        console.log('subscribed');
+      });
     }
   }
 
   deleteItem(item): void {
-    this.todoService.deleteTodoItem(item);
+    this.todoService.deleteTodoItem(item).subscribe((data) => {
+      console.log('subcribed');
+    });
     for (let i = 0; i < this.list.length; i++) {
       if (this.list[i] === item) {
         this.list.splice(i, 1);
@@ -45,21 +42,22 @@ export class TodoComponent {
     }
   }
 
-  addTodoItem(name): boolean {
+  addTodoItem(input): boolean {
+    const name = input.value;
     const item = new Item(null, name);
-    this.todoService.addTodoItem(item);
+    this.todoService.addTodoItem(item).subscribe((data) => {
+      console.log('subscribed');
+    });
     this.list.push(item);
-
-    var input = <HTMLInputElement>document.querySelector('#addItemInput');
     input.value = '';
     return false;
   }
 
-  toggleTextBox(selector): void {
-    document.querySelector(selector).toggleAttribute('disabled');
+  toggleTextBox(textbox): void {
+    textbox.toggleAttribute('disabled');
   }
 
-  showAddForm(): void {
+  toggleAddForm(): void {
     this.showForm = !this.showForm;
   }
 }

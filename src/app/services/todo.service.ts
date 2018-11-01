@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import AjaxService from './ajax.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Item from '../classes/Item';
 
 @Injectable({
@@ -9,26 +8,28 @@ import Item from '../classes/Item';
 })
 
 class TodoService {
-  data: string;
-  constructor(private http: HttpClient, private ajaxService: AjaxService) { }
+  headers: HttpHeaders;
+  constructor(private http: HttpClient) {
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
+  }
 
   getTodoList(): Observable<Item[]> {
     return this.http.get<Item[]>('http://localhost:3000/webapi/getTodoList');
   }
 
-  deleteTodoItem(item): void {
-    var body = `id=${item.id}`;
-    this.ajaxService.delete('http://localhost:3000/webapi/deleteTodoItem', body);
+  deleteTodoItem(item): Observable<Item[]> {
+    const body = `id=${item.id}`;
+    return this.http.post<Item[]>('http://localhost:3000/webapi/deleteTodoItem', body, {headers: this.headers});
   }
 
-  updateTodoItem(item): void {
-    var body = `id=${item.id}&name=${item.name}`;
-    this.ajaxService.post('http://localhost:3000/webapi/updateTodoItem', body);
+  updateTodoItem(item): Observable<Item[]> {
+    const body = `id=${item.id}&name=${item.name}`;
+    return this.http.post<Item[]>('http://localhost:3000/webapi/updateTodoItem', body, {headers: this.headers});
   }
 
-  addTodoItem(item): void {
-    var body = `name=${item.name}`;
-    this.ajaxService.post('http://localhost:3000/webapi/addTodoItem', body);
+  addTodoItem(item): Observable<Item[]> {
+    const body = `name=${item.name}`;
+    return this.http.post<Item[]>('http://localhost:3000/webapi/addTodoItem', body, {headers: this.headers});
   }
 }
 
