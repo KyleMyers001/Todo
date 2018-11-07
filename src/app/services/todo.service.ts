@@ -27,9 +27,9 @@ class TodoService {
     return this.http.post<Item[]>('http://localhost:3000/webapi/updateTodoItem', body, {headers: this.headers});
   }
 
-  addTodoItem(item): Observable<Item[]> {
+  addTodoItem(item): Observable<Item> {
     const body = `name=${item.name}`;
-    return this.http.post<Item[]>('http://localhost:3000/webapi/addTodoItem', body, {headers: this.headers});
+    return this.http.post<Item>('http://localhost:3000/webapi/addTodoItem', body, {headers: this.headers});
   }
 }
 

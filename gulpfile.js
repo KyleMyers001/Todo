@@ -9,9 +9,10 @@ gulp.task('start-web-api', () => {
   return run('nodemon src/webapi/index.js').exec();
 });
 
-gulp.task('serve', () => {
+gulp.task('serve', ['start-angular-app'], () => {
   gulp.start('start-web-api');
-  gulp.start('start-angular-app');
+  run('nodemon src/webapi/index.js').exec()
+  // gulp.start('start-angular-app');
 });
 
 gulp.task('default', ['serve']);

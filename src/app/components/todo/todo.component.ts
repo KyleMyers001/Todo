@@ -24,9 +24,7 @@ export class TodoComponent {
       const textbox = e.target;
       textbox.toggleAttribute('disabled');
       item.name = textbox.value;
-      this.todoService.updateTodoItem(item).subscribe((data) => {
-        console.log('subscribed');
-      });
+      this.todoService.updateTodoItem(item).subscribe((data) => {});
     }
   }
 
@@ -46,9 +44,8 @@ export class TodoComponent {
     const name = input.value;
     const item = new Item(null, name);
     this.todoService.addTodoItem(item).subscribe((data) => {
-      console.log('subscribed');
+      this.list.push(data);
     });
-    this.list.push(item);
     input.value = '';
     return false;
   }

@@ -19,94 +19,92 @@ app.listen(3000, () => {
 });
 
 app.get('/webapi/getTodoList', (req, res) => {
-  fs.readFile(dataFile, 'utf8', function(err, data) {
-    if (err)
-      throw err;
-    const obj = JSON.parse(data);
-    res.send(obj.items);
+  readFile((data) => {
+    res.send(data.items);
   });
 });
 
 app.post('/webapi/addTodoItem', (req, res) => {
   if (!req.body || !req.body.name) return res.sendStatus(400);
-
-  var item = {
-    name: req.body.name
-  }
-  addTodoItem(item);
-  res.send(201, item);
+  updateData((data) => {
+    const item = {
+      id: data.items[data.items.length - 1].id + 1,
+      name: req.body.name
+    }
+    data.items.push(item);
+    res.send(201, item);
+    return data;
+  });
 });
+
+// const addTodoItem = (item, callback) => {
+//   updateData((data) => {
+//     data.items.push(item);
+//     callback(item);
+//     return data;
+//   });
+// }
 
 app.post('/webapi/updateTodoItem', (req, res) => {
   if (!req.body || !req.body.name || !req.body.id) return res.sendStatus(400);
-  var item = {
-    id: Number(req.body.id),
-    name: req.body.name
-  }
-  updateTodoItem(item);
-  res.send(201, req.body);
+  updateData((data) => {
+    const item = {
+      id: Number(req.body.id),
+      name: req.body.name
+    }
+
+    const currentItemIndex = data.items.findIndex((currentItem) => {
+      return currentItem.id === item.id;
+    });
+
+    if(currentItemIndex >= 0) {
+      data.items[currentItemIndex] = item;
+    }
+
+    res.send(201, item);
+    return data;
+  });
 });
 
 app.post('/webapi/deleteTodoItem', (req, res) => {
   if (!req.body || !req.body.id) return res.sendStatus(400);
-  var id = Number(req.body.id);
+  const id = Number(req.body.id);
   deleteTodoItem(id);
-  res.send(201, req.body);
+  res.send(201, id);
 });
-
-
-app.get('/testForm', (req, res) => {
-  var thePath = path.join(__dirname, 'Index.html');
-  res.sendFile(thePath);
-});
-
-const addTodoItem = (item) => {
-  fs.readFile(dataFile, 'utf8', (err, data) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    let obj = JSON.parse(data);
-    item.id = obj.items[obj.items.length - 1].id + 1;
-    obj.items.push(item);
-    fs.writeFile(dataFile, JSON.stringify(obj), 'utf8', function() {});
-  });
-}
-
-const updateTodoItem = (item) => {
-  fs.readFile(dataFile, 'utf8', (err, data) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    let obj = JSON.parse(data);
-    var currentItemIndex = obj.items.findIndex((currentItem) => {
-      return currentItem.id === item.id
-    });
-
-    if(currentItemIndex >= 0) {
-      obj.items[currentItemIndex] = item;
-    }
-
-    fs.writeFile(dataFile, JSON.stringify(obj), 'utf8', function() {});
-  });
-}
 
 const deleteTodoItem = (id) => {
+  updateData((data) => {
+    const itemIndex = data.items.findIndex((item) => {
+      return item.id === id;
+    });
+
+    if (itemIndex >= 0) {
+      data.items.splice(itemIndex, 1);
+    }
+
+    return data;
+  });
+}
+
+const readFile = (callback) => {
   fs.readFile(dataFile, 'utf8', (err, data) => {
     if (err) {
       console.log(err);
       return;
     }
     let obj = JSON.parse(data);
-    var itemIndex = obj.items.findIndex((item) => {
-      return item.id === id
-    });
-
-    if(itemIndex >= 0) {
-      obj.items.splice(itemIndex, 1);
-    }
-
-    fs.writeFile(dataFile, JSON.stringify(obj), 'utf8', function() {});
+    callback(obj);
   });
 }
+
+// TODO: Make this easier to read.
+// Read and write to the data file.
+const updateData = (readCallback) => {
+  const writeCallback = (data) => {
+    const modifiedData = readCallback(data);
+    fs.writeFile(dataFile, JSON.stringify(modifiedData), 'utf8', function() {});
+  }
+  readFile(writeCallback);
+}
+
