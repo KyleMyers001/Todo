@@ -1,30 +1,36 @@
+<!-- 
+  Inspiration
+
+  1. Apple reminders: https://cdn.zapier.com/storage/photos/60225e6e85a57ecadeccf9b63d2ba669.png
+  A. Just worry about right section. Ignore the calendar for now.
+
+ -->
+
 <div class="container">
   <br>
   <br>
-  <h1 class="text-center">Todo List App</h1>
+  <h1>Todo List App</h1>
   <form id="addForm" (submit)="addTodoItem(input);">
     <div id="addFormFields" [ngClass]="{'invisible': !showForm }">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <button type="submit" class="btn btn-primary" type="button" (click)="addTodoItem(input);">Add</button>
-        </div>
-        <input #input type="text" class="form-control pl-3" placeholder="Enter the title"/>
-      </div>
+    <div class="input-group input-group--prepend">
+      <button type="submit" class="btn btn--add" type="button" (click)="addTodoItem(input);">Add</button>
+      <input #input type="text" class="input-group__input" placeholder="Enter the title" />
+    </div>
     </div>
     <br>
   </form>
-  <button class="btn btn-success" (click)="toggleAddForm();">
-    <i class="fa fa-plus"></i>
+  <button class="btn btn--toggle" (click)="toggleAddForm();">
+    <i class="fal fa-plus"></i>
   </button>
   <br>
   <br>
-  <ul class="list-group">
-    <li class="list-group-item" *ngFor="let item of list">
+  <ul class="list">
+    <li class="list__item" *ngFor="let item of list">
       <input #textbox type="text" value="{{item.name}}" (keypress)="updateTodoItem($event, item);" disabled />
-      <button class="btn btn-info float-right" (click)="toggleTextBox(textbox);">
+      <button class="btn btn--edit" (click)="toggleTextBox(textbox);">
         <i class="fal fa-edit"></i>
       </button>
-      <button class="btn btn-danger float-right" (click)="deleteItem(item);">
+      <button class="btn btn--delete" (click)="deleteItem(item);">
         <i class="fal fa-trash-alt"></i>
       </button>
     </li>

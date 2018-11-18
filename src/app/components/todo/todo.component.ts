@@ -8,7 +8,6 @@ import Item from '../../classes/Item';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent {
-  title = 'todo';
   list: Item[];
   showForm: boolean;
   constructor(private todoService: TodoService) {

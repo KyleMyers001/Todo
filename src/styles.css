@@ -6,6 +6,57 @@ div,
 header,
 html,
 p,
-span {
+span,
+ul,
+li,
+input {
   font-family: 'Source Sans Pro', TimesNewRoman, 'Times New Roman';
+  font-size: 16px;
+}
+
+h1 {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+button {
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  padding: 8px 12px;
+}
+
+
+button:hover {
+  filter: brightness(92%);
+}
+
+button:active {
+  filter: brightness(105%);
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+input[type="text"] {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 6px;
+}
+
+input[type="text"]:disabled {
+  border-color: transparent;
+  cursor: text;
+}
+
+.invisible {
+  visibility: hidden;
 }
