@@ -29,8 +29,8 @@ button {
   cursor: pointer;
   outline: none;
   padding: 8px 12px;
+  transition: filter 0.2s;
 }
-
 
 button:hover {
   filter: brightness(92%);

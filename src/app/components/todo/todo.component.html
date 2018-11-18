@@ -12,10 +12,10 @@
   <h1>Todo List App</h1>
   <form id="addForm" (submit)="addTodoItem(input);">
     <div id="addFormFields" [ngClass]="{'invisible': !showForm }">
-    <div class="input-group input-group--prepend">
-      <button type="submit" class="btn btn--add" type="button" (click)="addTodoItem(input);">Add</button>
-      <input #input type="text" class="input-group__input" placeholder="Enter the title" />
-    </div>
+      <div class="input-group input-group--prepend">
+        <button type="submit" class="btn btn--add" type="button" (click)="addTodoItem(input);">Add</button>
+        <input #input type="text" class="input-group__input" placeholder="Enter the title" />
+      </div>
     </div>
     <br>
   </form>
