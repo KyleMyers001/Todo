@@ -12,8 +12,10 @@ export class TodoComponent {
   showForm: boolean;
   constructor(private todoService: TodoService) {
     this.list = new Array();
-    todoService.getTodoList().subscribe((data) => {
-      this.list = data;
+    todoService.getTodoList().subscribe((request) => {
+      if(request.success) {
+        this.list = request.data;
+      }
     });
     this.showForm = false;
   }
@@ -28,22 +30,28 @@ export class TodoComponent {
   }
 
   deleteItem(item): void {
-    this.todoService.deleteTodoItem(item).subscribe((data) => {
-      console.log('subcribed');
-    });
-    for (let i = 0; i < this.list.length; i++) {
-      if (this.list[i] === item) {
-        this.list.splice(i, 1);
-        return;
+    this.todoService.deleteTodoItem(item).subscribe((request) => {
+      if(request.success) {
+        for (let i = 0; i < this.list.length; i++) {
+          if (this.list[i] === item) {
+            this.list.splice(i, 1);
+            return;
+          }
+        }
       }
-    }
+    });
   }
 
   addTodoItem(input): boolean {
     const name = input.value;
     const item = new Item(null, name);
-    this.todoService.addTodoItem(item).subscribe((data) => {
-      this.list.push(data);
+    this.todoService.addTodoItem(item).subscribe((request) => {
+      if(request.success) {
+        console.log(request);
+        this.list.push(request.data);
+      } else {
+        // display data.message
+      }
     });
     input.value = '';
     return false;
