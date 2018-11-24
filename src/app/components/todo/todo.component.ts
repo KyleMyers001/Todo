@@ -30,6 +30,7 @@ export class TodoComponent {
   getItems(): void {
     if (this.hasMoreItems) {
       this.loadingItems = true;
+      this.hasMoreItems = false; // Prevent simulataneous calls
       this.todoService.getTodoList(this.list.length).subscribe((request) => {
         if (request.success) {
           request.data.items.forEach((item) => {
