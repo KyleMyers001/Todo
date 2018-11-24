@@ -10,29 +10,17 @@
   <br>
   <br>
   <h1>Todo List App</h1>
-  <form id="addForm" (submit)="addTodoItem(input);">
-    <div id="addFormFields" [ngClass]="{'invisible': !showForm }">
-      <div class="input-group input-group--prepend">
-        <button type="submit" class="btn btn--add" type="button" (click)="addTodoItem(input);">Add</button>
-        <input #input type="text" class="input-group__input" placeholder="Enter the title" />
-      </div>
-    </div>
-    <br>
-  </form>
-  <button class="btn btn--toggle" (click)="toggleAddForm();">
-    <i class="fal fa-plus"></i>
-  </button>
   <br>
   <br>
   <ul class="list">
     <li class="list__item" *ngFor="let item of list">
-      <input #textbox type="text" value="{{item.name}}" (keypress)="updateTodoItem($event, item);" disabled />
-      <button class="btn btn--edit" (click)="toggleTextBox(textbox);">
-        <i class="fal fa-edit"></i>
+      <button class="btn btn--complete" (click)="deleteItem(item);">
+        <i class="fal fa-check hidden"></i>
       </button>
-      <button class="btn btn--delete" (click)="deleteItem(item);">
-        <i class="fal fa-trash-alt"></i>
-      </button>
+      <input #textbox type="text" value="{{item.name}}" (keypress)="updateItem($event, item);">
+    </li>
+    <li class="list__item">
+      <input type="text" (keypress)="addItem($event, addTextbox);" #addTextbox>
     </li>
   </ul>
   <br>

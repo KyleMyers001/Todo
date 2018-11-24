@@ -7,6 +7,7 @@ import Item from '../../classes/Item';
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.css']
 })
+
 export class TodoComponent {
   list: Item[];
   showForm: boolean;
@@ -20,12 +21,18 @@ export class TodoComponent {
     this.showForm = false;
   }
 
-  updateTodoItem(e, item) {
-    if (e.key.toLowerCase() === 'enter') {
-      const textbox = e.target;
-      textbox.toggleAttribute('disabled');
-      item.name = textbox.value;
-      this.todoService.updateTodoItem(item).subscribe((data) => {});
+  addItem(event, textbox): void {
+    if(event.key.toLowerCase() === 'enter') {
+      const name = textbox.value;
+      const item = new Item(null, name);
+      this.todoService.addTodoItem(item).subscribe((request) => {
+        if (request.success) {
+          this.list.push(request.data);
+          textbox.value = '';
+        } else {
+          // Show error in data.message
+        }
+      });
     }
   }
 
@@ -42,26 +49,12 @@ export class TodoComponent {
     });
   }
 
-  addTodoItem(input): boolean {
-    const name = input.value;
-    const item = new Item(null, name);
-    this.todoService.addTodoItem(item).subscribe((request) => {
-      if(request.success) {
-        console.log(request);
-        this.list.push(request.data);
-      } else {
-        // display data.message
-      }
-    });
-    input.value = '';
-    return false;
-  }
-
-  toggleTextBox(textbox): void {
-    textbox.toggleAttribute('disabled');
-  }
-
-  toggleAddForm(): void {
-    this.showForm = !this.showForm;
+  updateItem(e, item) {
+    if (e.key.toLowerCase() === 'enter') {
+      const textbox = e.target;
+      item.name = textbox.value;
+      this.todoService.updateTodoItem(item).subscribe((data) => {});
+      textbox.blur();
+    }
   }
 }

@@ -30,6 +30,7 @@ button {
   outline: none;
   padding: 8px 12px;
   transition: filter 0.2s;
+  vertical-align: top;
 }
 
 button:hover {
@@ -49,10 +50,10 @@ input[type="text"] {
   background-color: transparent;
   border: 1px solid #ddd;
   border-radius: 4px;
+  outline: none;
   padding: 6px;
-}
+  vertical-align: top;
 
-input[type="text"]:disabled {
   border-color: transparent;
   cursor: text;
 }
