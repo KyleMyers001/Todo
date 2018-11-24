@@ -11,7 +11,6 @@ import HttpRequest from '../interfaces/HttpRequest';
 class TodoService {
   headers: HttpHeaders;
   constructor(private http: HttpClient) {
-    // this.headers = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
@@ -20,20 +19,14 @@ class TodoService {
   }
 
   deleteTodoItem(item): Observable<HttpRequest> {
-    // const body = `id=${item.id}`;
-    // return this.http.post<Item[]>('http://localhost:3000/todo/deleteItem', body, {headers: this.headers});
     return this.http.post<HttpRequest>('http://localhost:3000/todo/deleteItem', item, {headers: this.headers});
   }
 
   updateTodoItem(item): Observable<HttpRequest> {
-    // const body = `id=${item.id}&name=${item.name}`;
-    // return this.http.post<Item[]>('http://localhost:3000/todo/updateItem', body, {headers: this.headers});
     return this.http.post<HttpRequest>('http://localhost:3000/todo/updateItem', item, {headers: this.headers});
   }
 
   addTodoItem(item): Observable<HttpRequest> {
-    // const body = `name=${item.name}`;
-    // return this.http.post<Item>('http://localhost:3000/todo/addItem', body, {headers: this.headers});
     return this.http.post<HttpRequest>('http://localhost:3000/todo/addItem', item, {headers: this.headers});
   }
 }
