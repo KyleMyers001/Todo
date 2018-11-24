@@ -15,7 +15,7 @@
   <ul class="list">
     <li class="list__item" *ngFor="let item of list">
       <button class="btn btn--complete" (click)="deleteItem(item);">
-        <i class="fal fa-check hidden"></i>
+        <i class="fal fa-check"></i>
       </button>
       <input #textbox type="text" value="{{item.name}}" (keypress)="updateItem($event, item);">
     </li>
@@ -23,5 +23,8 @@
       <input type="text" (keypress)="addItem($event, addTextbox);" #addTextbox>
     </li>
   </ul>
+  <div class="text-center" [ngClass]="{'invisible': !loadingItems}">
+    <i class="loading fal fa-spinner"></i>
+  </div>
   <br>
 </div>

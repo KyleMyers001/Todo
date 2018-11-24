@@ -61,3 +61,22 @@ input[type="text"] {
 .invisible {
   visibility: hidden;
 }
+
+.loading {
+  color: #0E7FA6;
+  animation: rotate 2s linear infinite;
+  animation-delay: 0;
+  font-size: 2.5em;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.text-center {
+  text-align: center;
+}

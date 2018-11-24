@@ -14,8 +14,8 @@ class TodoService {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
-  getTodoList(): Observable<HttpRequest> {
-    return this.http.get<HttpRequest>('http://localhost:3000/todo/getItems');
+  getTodoList(numItemsLoaded): Observable<HttpRequest> {
+    return this.http.get<HttpRequest>(`http://localhost:3000/todo/getItems?numItemsLoaded=${numItemsLoaded}`);
   }
 
   deleteTodoItem(item): Observable<HttpRequest> {
