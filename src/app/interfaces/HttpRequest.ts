@@ -1,5 +1,3 @@
-import Item from '../classes/Item';
-
 interface HttpRequest {
   data: any;
   message: String;

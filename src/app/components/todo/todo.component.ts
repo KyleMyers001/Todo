@@ -16,8 +16,8 @@ export class TodoComponent {
   constructor(private todoService: TodoService) {
     this.hasMoreItems = true;
     this.list = new Array();
-    this.getItems();
     this.showForm = false;
+    this.getItems();
 
     window.onscroll = () => {
       const loadingIcon = document.querySelector('.loading');

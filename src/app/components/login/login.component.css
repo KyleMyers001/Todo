@@ -1,0 +1,14 @@
+label {
+  display: inline-block;
+  width: 100px;
+}
+
+.error {
+  color: red;
+  font-size: 16px;
+}
+
+.signup-container {
+  border-radius: 6px;
+  padding: 16px;
+}

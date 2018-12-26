@@ -5,16 +5,16 @@
   color: transparent;
   font-size: 12px;
   height: 20px;
-  padding: 0;
-  transition: all .2s;
-  width: 20px;
 
   /* Center vertically */
   margin: 0 0 0 16px;
+  padding: 0;
   position: absolute;
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+  transition: all 0.2s;
+  width: 20px;
 
 }
 
@@ -29,8 +29,9 @@
 }
 
 .list__item input {
+  background-color: transparent;
   border-bottom: 1px solid #eee;
-  border-radius: 0;
+  border-color: transparent;
   /* Center vertically */
   margin: 0 0 0 52px;
   padding: 8px 0;

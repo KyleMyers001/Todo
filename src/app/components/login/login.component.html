@@ -1,0 +1,45 @@
+<div class="signup-container container">
+  <br>
+  <br>
+  <br>
+  <form class="form" (submit)="loginUser(loginEmail, loginPassword);">
+    <p class="error" [ngClass]="{'invisible': !error.show}">{{error.message}}</p>
+
+    <h1>Login</h1>
+    <div class="form__group">
+      <label for="email">Email:</label>
+      <input name="email" type="text" #loginEmail>
+    </div>
+    <br>
+    <div class="form__group">
+      <label for="password">Password:</label>
+      <input name="password" type="text" #loginPassword>
+    </div>
+    <button type="submit">Login</button>
+  </form>
+  <br>
+  <form class="form" (submit)="registerUser(registerEmail, registerPassword, registerFirstName, registerLastName);">
+      <h1>Register</h1>
+      <div class="form__group">
+        <label for="email">Email:</label>
+        <input name="email" type="text" #registerEmail>
+      </div>
+      <br>
+      <div class="form__group">
+        <label for="password">Password:</label>
+        <input name="password" type="text" #registerPassword>
+      </div>
+      <br>
+      <div class="form__group">
+        <label for="firstName">First Name:</label>
+        <input name="firstName" type="text" #registerFirstName>
+      </div>
+      <br>
+      <div class="form__group">
+        <label for="lastName">Last Name:</label>
+        <input name="lastName" type="text" #registerLastName>
+      </div>
+      <br>
+      <button type="submit">Register</button>
+    </form>
+</div>

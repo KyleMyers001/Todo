@@ -13,21 +13,36 @@ class TodoService {
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   }
+  // getTodoList(numItemsLoaded): Observable<HttpRequest> {
+  //   return this.http.get<HttpRequest>(`http://157.230.8.20:5000/todo/getItems?numItemsLoaded=${numItemsLoaded}`);
+  // }
+
+  // deleteTodoItem(item): Observable<HttpRequest> {
+  //   return this.http.post<HttpRequest>('http://157.230.8.20:5000/todo/deleteItem', item, {headers: this.headers});
+  // }
+
+  // updateTodoItem(item): Observable<HttpRequest> {
+  //   return this.http.post<HttpRequest>('http://157.230.8.20:5000/todo/updateItem', item, {headers: this.headers});
+  // }
+
+  // addTodoItem(item): Observable<HttpRequest> {
+  //   return this.http.post<HttpRequest>('http://157.230.8.20:5000/todo/addItem', item, {headers: this.headers});
+  // }
 
   getTodoList(numItemsLoaded): Observable<HttpRequest> {
-    return this.http.get<HttpRequest>(`http://localhost:3000/todo/getItems?numItemsLoaded=${numItemsLoaded}`);
+    return this.http.get<HttpRequest>(`http://localhost:5000/todo/getItems?numItemsLoaded=${numItemsLoaded}`);
   }
 
   deleteTodoItem(item): Observable<HttpRequest> {
-    return this.http.post<HttpRequest>('http://localhost:3000/todo/deleteItem', item, {headers: this.headers});
+    return this.http.post<HttpRequest>('http://localhost:5000/todo/deleteItem', item, {headers: this.headers});
   }
 
   updateTodoItem(item): Observable<HttpRequest> {
-    return this.http.post<HttpRequest>('http://localhost:3000/todo/updateItem', item, {headers: this.headers});
+    return this.http.post<HttpRequest>('http://localhost:5000/todo/updateItem', item, {headers: this.headers});
   }
 
   addTodoItem(item): Observable<HttpRequest> {
-    return this.http.post<HttpRequest>('http://localhost:3000/todo/addItem', item, {headers: this.headers});
+    return this.http.post<HttpRequest>('http://localhost:5000/todo/addItem', item, {headers: this.headers});
   }
 }
 
