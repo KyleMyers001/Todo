@@ -1,14 +1,35 @@
-label {
-  display: inline-block;
-  width: 100px;
-}
-
-.error {
-  color: red;
+.form__main-error .forgot-password-link {
   font-size: 16px;
+  margin-top: 4px;
 }
 
-.signup-container {
-  border-radius: 6px;
-  padding: 16px;
+.forgot-password-link {
+  border-style: dotted;
+  border-width: 0 0 1px 0;
+  color: #444;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.forgot-password-link:hover {
+  border-style: solid;
+}
+
+.register {
+  color: #fff;
+  height: 40px;
+  line-height: 40px;
+}
+
+.register__btn {
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  margin-left: 8px;
+  transition: background-color 0.2s ease-in, color 0.2s ease-in;
+}
+
+.register__btn:hover {
+  background-color: #eee;
+  color: #444;
 }

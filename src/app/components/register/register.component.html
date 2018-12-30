@@ -1,0 +1,35 @@
+<div class="form-background">
+  <div class="form-container">
+    <form class="form" (submit)="registerUser();">
+      <div class="form__main-error" *ngIf="errors.main.show">
+        <p><strong>{{errors.main.message}}</strong></p>
+      </div>
+      <h1>Register</h1>
+      <div class="form__group"> 
+        <label class="form__label" for="email">Email:</label>
+        <input class="form__input" name="email" type="email" [formControl]="email" required email>
+        <p class="form__error" *ngIf="errors.email.show">{{errors.email.message}}</p>
+      </div>
+      <br>
+      <div class="form__group">
+        <label class="form__label" for="password">Password:</label>
+        <input class="form__input" name="password" type="text" [formControl]="password" required>
+        <p class="form__error" *ngIf="errors.password.show">{{errors.password.message}}</p>
+      </div>
+      <br>
+      <div class="form__group">
+        <label class="form__label" for="firstName">First Name:</label>
+        <input class="form__input" name="firstName" type="text" [formControl]="firstName" required>
+        <p class="form__error" *ngIf="errors.firstName.show">{{errors.firstName.message}}</p>
+      </div>
+      <br>
+      <div class="form__group">
+        <label class="form__label" for="lastName">Last Name:</label>
+        <input class="form__input" name="lastName" type="text" [formControl]="lastName" required>
+        <p class="form__error" *ngIf="errors.lastName.show">{{errors.lastName.message}}</p>
+      </div>
+      <br>
+      <button class="form__submit" type="submit">Register</button>
+    </form>
+  </div>
+</div>

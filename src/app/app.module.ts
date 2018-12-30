@@ -1,34 +1,43 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './components/app/app.component';
-import { TodoComponent } from './components/todo/todo.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LoginComponent } from './components/login/login.component';
+import { TodoComponent } from './components/todo/todo.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
-// const appRoutes: Routes = [
-//   { path: '', component: TodoComponent },
-//   { path: 'login', component: LoginComponent },
-// ];
+
 const appRoutes: Routes = [
-  { path: 'todo', component: TodoComponent },
-  { path: 'login', component: LoginComponent },
   { path: '', component: LoginComponent },
-]; // Testing
+  { path: 'forgotPassword', component: ForgotPasswordComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'todo', component: TodoComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'resetpassword', component: ResetPasswordComponent },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
+    ForgotPasswordComponent,
+    LoginComponent,
     TodoComponent,
-    LoginComponent
+    RegisterComponent,
+    ResetPasswordComponent
   ],
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true }
+      { enableTracing: false }
     ),
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

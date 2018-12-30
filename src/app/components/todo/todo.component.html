@@ -9,11 +9,7 @@
 <div class="container">
   <br>
   <br>
-  <h1>Todo List App</h1>
-  <br>
-  <button routerLink="/login" routerLinkActive="active" class="btn">Login</button>
-  <br>
-  <br>
+  <h1>Todo</h1>
   <ul class="list">
     <li class="list__item" *ngFor="let item of list">
       <button class="btn btn--complete" (click)="deleteItem(item);">

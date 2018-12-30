@@ -1,45 +1,33 @@
-<div class="signup-container container">
-  <br>
-  <br>
-  <br>
-  <form class="form" (submit)="loginUser(loginEmail, loginPassword);">
-    <p class="error" [ngClass]="{'invisible': !error.show}">{{error.message}}</p>
-
-    <h1>Login</h1>
-    <div class="form__group">
-      <label for="email">Email:</label>
-      <input name="email" type="text" #loginEmail>
-    </div>
-    <br>
-    <div class="form__group">
-      <label for="password">Password:</label>
-      <input name="password" type="text" #loginPassword>
-    </div>
-    <button type="submit">Login</button>
-  </form>
-  <br>
-  <form class="form" (submit)="registerUser(registerEmail, registerPassword, registerFirstName, registerLastName);">
-      <h1>Register</h1>
+<div class="form-background">
+  <div class="form-container">
+    <form class="form" (submit)="loginUser(email, password);">
+      <div class="form__main-error" *ngIf="errors.main.show">
+        <p><strong>{{errors.main.message}}</strong></p>
+        <p>Did you 
+          <a class="forgot-password-link" routerLink="/forgotPassword" routerLinkActive="active">forget your password?</a>
+        </p>
+      </div>
+      
+      <h1 class="form__header">Login</h1>
       <div class="form__group">
-        <label for="email">Email:</label>
-        <input name="email" type="text" #registerEmail>
+        <label class="form__label" for="email">Email:</label>
+        <input class="form__input" name="email" type="text" [formControl]="email" email required>
+        <p class="form__error" *ngIf="errors.email.show">{{errors.email.message}}</p>
       </div>
       <br>
       <div class="form__group">
-        <label for="password">Password:</label>
-        <input name="password" type="text" #registerPassword>
+        <label class="form__label" for="password">Password:</label>
+        <input class="form__input" name="password" type="text" [formControl]="password" required>
+        <p class="form__error" *ngIf="errors.password.show">{{errors.password.message}}</p>
       </div>
       <br>
-      <div class="form__group">
-        <label for="firstName">First Name:</label>
-        <input name="firstName" type="text" #registerFirstName>
-      </div>
-      <br>
-      <div class="form__group">
-        <label for="lastName">Last Name:</label>
-        <input name="lastName" type="text" #registerLastName>
-      </div>
-      <br>
-      <button type="submit">Register</button>
+      <a class="forgot-password-link" routerLink="/forgotPassword" routerLinkActive="active">Forgot your password?</a>
+      <button class="form__submit" type="submit">Login</button>
     </form>
+    <br>
+    <div class="register text-center">
+      <span>Don't have an account?</span>
+      <button routerLink="/register" routerLinkActive="active" class="register__btn">Sign up</button>
+    </div>
+  </div>
 </div>

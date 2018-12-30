@@ -24,6 +24,7 @@ ul {
 }
 
 button {
+  background-color: #eee;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -46,6 +47,8 @@ button:active {
   max-width: 1080px;
 }
 
+input[type="email"],
+input[type="password"],
 input[type="text"] {
   border: 1px solid #ddd;
   border-radius: 0;
@@ -76,4 +79,84 @@ input[type="text"] {
 
 .text-center {
   text-align: center;
+}
+
+.form-background {
+  background-image: linear-gradient(white, #0E7FA6);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.form-container {
+  left: 50%;
+  margin: 0 auto;
+  max-width: 96%;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width:  650px;
+}
+
+.form {
+  background-color: #fff;
+  border-radius: 6px;
+  margin: 0 auto;
+  padding: 32px 32px 64px; 
+  position: relative;
+}
+
+@media(min-width: 768px) {
+  .form {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.form__header {
+  font-weight: normal;
+}
+
+.form .form__input {
+  border-radius: 4px;
+}
+
+.form__input {
+  display: block;
+  font-size: 18px;
+  height: 30px;
+  width: 100%;
+}
+
+.form__label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.form__submit {
+  float: right;
+  padding: 10px 14px;
+  vertical-align: top;
+}
+
+.form__error {
+  color: red;
+  font-size: 16px;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+
+.form__main-error {
+  background-color: #ffedef;
+  border-radius: 6px;
+  font-size: 16px;
+  padding: 12px;  
+  text-align: center; 
+}
+
+.form__main-error p {
+  margin-bottom: 4px;
+  margin-top: 4px;
 }

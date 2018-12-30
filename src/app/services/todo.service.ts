@@ -29,19 +29,19 @@ class TodoService {
   //   return this.http.post<HttpRequest>('http://157.230.8.20:5000/todo/addItem', item, {headers: this.headers});
   // }
 
-  getTodoList(numItemsLoaded): Observable<HttpRequest> {
+  getTodoList(numItemsLoaded: number): Observable<HttpRequest> {
     return this.http.get<HttpRequest>(`http://localhost:5000/todo/getItems?numItemsLoaded=${numItemsLoaded}`);
   }
 
-  deleteTodoItem(item): Observable<HttpRequest> {
+  deleteTodoItem(item: Item): Observable<HttpRequest> {
     return this.http.post<HttpRequest>('http://localhost:5000/todo/deleteItem', item, {headers: this.headers});
   }
 
-  updateTodoItem(item): Observable<HttpRequest> {
+  updateTodoItem(item: Item): Observable<HttpRequest> {
     return this.http.post<HttpRequest>('http://localhost:5000/todo/updateItem', item, {headers: this.headers});
   }
 
-  addTodoItem(item): Observable<HttpRequest> {
+  addTodoItem(item: Item): Observable<HttpRequest> {
     return this.http.post<HttpRequest>('http://localhost:5000/todo/addItem', item, {headers: this.headers});
   }
 }
