@@ -42,7 +42,15 @@
   width: calc(100% - 64px);
 }
 
-.list__item input:focus,
-.list__item input:hover {
+.list__item input:not(:disabled):focus,
+.list__item input:not(:disabled):hover {
   border-bottom-color:#ddd;
+}
+
+.list__item input:disabled {
+  cursor: pointer;
+}
+
+.list__item input:disabled:active {
+  color: #38C7BD; 
 }

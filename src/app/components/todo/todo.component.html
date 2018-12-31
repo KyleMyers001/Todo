@@ -10,8 +10,25 @@
   <br>
   <br>
   <h1>Todo</h1>
+
+  <h2>Lists</h2>
+  <!-- <button class="fal fa-plus" (click)="addList();"></button> -->
   <ul class="list">
-    <li class="list__item" *ngFor="let item of list">
+    <li class="list__item" *ngFor="let list of lists" (click)="changeList(list);">
+      <button class="btn btn--complete" (click)="deleteList(list);">
+        <i class="fal fa-check"></i>
+      </button>
+      <input #listTextbox type="text" value="{{list.name}}" disabled>
+    </li>
+    <li class="list__item">
+      <input type="text" (keypress)="addList($event, addListTextbox);" #addListTextbox>
+    </li>
+  </ul>
+
+
+  <h2>{{activeList.name}}</h2>
+  <ul class="list">
+    <li class="list__item" *ngFor="let item of activeList.items">
       <button class="btn btn--complete" (click)="deleteItem(item);">
         <i class="fal fa-check"></i>
       </button>

@@ -17,25 +17,41 @@ class UserService {
   }
 
   loginUser(user: User): Observable<HttpRequest> {
-    return this.http.post<HttpRequest>('http://localhost:5000/todo/loginUser', user, {headers: this.headers});
+    return this.http.post<HttpRequest>('http://localhost:5000/todo/user/loginUser', user, {headers: this.headers});
   }
 
   registerUser(user: User): Observable<HttpRequest> {
-    return this.http.post<HttpRequest>('http://localhost:5000/todo/registerUser', user, {headers: this.headers});
+    return this.http.post<HttpRequest>('http://localhost:5000/todo/user/registerUser', user, {headers: this.headers});
   }
 
   resetPassword(data: any) {
-    return this.http.post<HttpRequest>('http://localhost:5000/todo/resetPassword', data, {headers: this.headers});
+    return this.http.post<HttpRequest>('http://localhost:5000/todo/user/resetPassword', data, {headers: this.headers});
   }
 
   sendForgotPasswordEmail(email: string): Observable<HttpRequest> {
     const data = {
       email: email
     }
-    return this.http.post<HttpRequest>('http://localhost:5000/todo/sendForgotPasswordEmail', data, {headers: this.headers});
+    return this.http.post<HttpRequest>('http://localhost:5000/todo/user/sendForgotPasswordEmail', data, {headers: this.headers});
   }
 
-  setUserCookie(user: User) {
+  getUserFromCookie(): User {
+    var name = 'user' + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return JSON.parse(c.substring(name.length, c.length));
+      }
+    }
+    return null;
+  }
+
+  setUserCookie(user: User): void {
     const userData = JSON.stringify(user);
     this.userCookie = new Cookie('user', userData, 30);
   }
