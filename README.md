@@ -2,6 +2,13 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.1.
 
+A task management application developed in angular.  The project is a work in progress.
+
+![alt text](https://github.com/KyleMyers001/Todo/blob/master/screenshots/Screenshot1.png)
+
+
+## Notes on running the application
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
