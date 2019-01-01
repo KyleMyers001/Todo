@@ -23,14 +23,6 @@ class TodoService {
     return this.http.post<HttpRequest>('http://localhost:5000/todo/list/addList', list, {headers: this.headers});
   }
 
-  getLists(userId: string): Observable<HttpRequest> {
-    return this.http.get<HttpRequest>(`http://localhost:5000/todo/list/getLists?userId=${userId}`);
-  }
-
-  getItems(listId: string, numItemsLoaded: number): Observable<HttpRequest> {
-    return this.http.get<HttpRequest>(`http://localhost:5000/todo/item/getItems?numItemsLoaded=${numItemsLoaded}&listId=${listId}`);
-  }
-
   deleteItem(item: Item): Observable<HttpRequest> {
     return this.http.post<HttpRequest>('http://localhost:5000/todo/item/deleteItem', item, {headers: this.headers});
   }
@@ -39,8 +31,20 @@ class TodoService {
     return this.http.post<HttpRequest>('http://localhost:5000/todo/list/deleteList', list, {headers: this.headers});
   }
 
+  getLists(userId: string): Observable<HttpRequest> {
+    return this.http.get<HttpRequest>(`http://localhost:5000/todo/list/getLists?userId=${userId}`);
+  }
+
+  getItems(listId: string, numItemsLoaded: number): Observable<HttpRequest> {
+    return this.http.get<HttpRequest>(`http://localhost:5000/todo/item/getItems?numItemsLoaded=${numItemsLoaded}&listId=${listId}`);
+  }
+
   updateItem(item: Item): Observable<HttpRequest> {
     return this.http.post<HttpRequest>('http://localhost:5000/todo/item/updateItem', item, {headers: this.headers});
+  }
+
+  updateList(list: List): Observable<HttpRequest> {
+    return this.http.post<HttpRequest>('http://localhost:5000/todo/list/updateList', list, {headers: this.headers});
   }
 
 }
