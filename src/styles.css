@@ -14,6 +14,10 @@ input {
   font-size: 16px;
 }
 
+body {
+  margin: 0;
+}
+
 h1 {
   text-align: center;
 }
@@ -159,4 +163,12 @@ input[type="text"] {
 .form__main-error p {
   margin-bottom: 4px;
   margin-top: 4px;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
 }

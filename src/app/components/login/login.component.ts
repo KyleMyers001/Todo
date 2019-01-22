@@ -78,9 +78,7 @@ export class LoginComponent {
     this.userService.loginUser(user).subscribe((request) => {
       if(request.success) {
         this.router.navigateByUrl('todo');
-        // Store user information unencrypted in a cookie
-        // Route to todo for now
-        this.userService.setUserCookie(request.data);
+        this.userService.setAuthenticationCookie(request.data);
       } else {
         this.errors.main = {
           show: true,

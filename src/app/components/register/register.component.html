@@ -13,7 +13,7 @@
       <br>
       <div class="form__group">
         <label class="form__label" for="password">Password:</label>
-        <input class="form__input" name="password" type="text" [formControl]="password" required>
+        <input class="form__input" name="password" type="password" [formControl]="password" required>
         <p class="form__error" *ngIf="errors.password.show">{{errors.password.message}}</p>
       </div>
       <br>

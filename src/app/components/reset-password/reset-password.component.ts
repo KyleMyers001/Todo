@@ -101,7 +101,6 @@ export class ResetPasswordComponent {
 
     return valid;
   }
- 
 
   resetPassword(): void {
     var valid = this.validate();

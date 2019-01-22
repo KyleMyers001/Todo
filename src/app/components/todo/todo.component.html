@@ -6,41 +6,27 @@
 
  -->
 
-<div class="container">
-  <br>
-  <br>
-  <h1>Todo</h1>
-
-  <h2>Lists</h2>
-  <!-- <button class="fal fa-plus" (click)="addList();"></button> -->
-  <ul class="list">
-    <li class="list__item" *ngFor="let list of lists" (click)="changeList(list);">
-      <button class="btn btn--complete" (click)="deleteList(list);">
-        <i class="fal fa-check"></i>
+<div class="todo">
+  <div class="todo-sidebar">
+    <h1 class="site-header">
+      <span class="site-header-text">Todo</span>
+      <button class="site-nav-toggle" (click)="toggleMobileMenu();">
+        <div></div>
+        <div></div>
+        <div></div> 
       </button>
-      <!-- <button class="fal fa-edit" (click)="updateList(list);"></button> -->
-      <input #listTextbox type="text" value="{{list.name}}" disabled>
-    </li>
-    <li class="list__item">
-      <input type="text" (keypress)="addList($event, addListTextbox);" #addListTextbox>
-    </li>
-  </ul>
+    </h1>
+    <app-list [taskComponent]="taskComponent" [ngClass]="{'hidden-mobile': !showMobileMenu}"
+      #listComponent></app-list>
+  </div>
 
-
-  <h2>{{activeList.name}}</h2>
-  <ul class="list">
-    <li class="list__item" *ngFor="let item of activeList.items">
-      <button class="btn btn--complete" (click)="deleteItem(item);">
-        <i class="fal fa-check"></i>
-      </button>
-      <input #textbox type="text" value="{{item.name}}" (keypress)="updateItem($event, item);">
-    </li>
-    <li class="list__item">
-      <input type="text" (keypress)="addItem($event, addTextbox);" #addTextbox>
-    </li>
-  </ul>
-  <div class="text-center" [ngClass]="{'invisible': !loadingItems}">
-    <i class="loading fal fa-spinner"></i>
+  <div class="todo-main">
+    <div class="status-bar">
+      <h2 class="status-bar__list-name" contenteditable="true" 
+        (keydown)="listComponent.handleListKeypress($event);">{{this.taskComponent.activeList.name}}</h2>
+      <p>Welcome, {{user.firstName}} {{user.lastName}}</p>
+    </div>
+    <app-task #taskComponent></app-task>
   </div>
   <br>
 </div>

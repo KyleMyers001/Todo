@@ -1,56 +1,103 @@
-.btn--complete {
+.todo {
+  bottom: 0;
+  display: flex;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.todo-sidebar {
+  background-color: #11487D;
+  width: 232px;
+}
+
+.todo-main {
+  background-color: #f6f8f9;
+  flex: 1;
+  overflow: auto;
+}
+
+.status-bar {
+  background-color: #11487D;
+  border-bottom: 1px solid #0E7FA6;
+  border-left: 1px solid #0E7FA6;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.status-bar > * {
+  color: white;
+  margin: 0;
+  vertical-align: top;
+}
+
+.site-header {
+  border-bottom: 1px solid #0E7FA6;
+  margin: 0;
+  padding: 12px;
+}
+
+.site-header-text {
+  color: white;
+  font-size: 24px;
+}
+
+.status-bar__list-name {
+  font-size: 20px;
+  font-weight: normal;
+  min-width: 200px;
+  outline: none;
+}
+
+.site-nav-toggle {
   background-color: transparent;
-  border: 1px solid #ccc;
-  border-radius: 30px;
-  color: transparent;
-  font-size: 12px;
-  height: 20px;
-
-  /* Center vertically */
-  margin: 0 0 0 16px;
-  padding: 0;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  transition: all 0.2s;
-  width: 20px;
-
+  display: none;
+  height: 48px;
+  width: 48px;
+  z-index: 1;
 }
 
-.btn--complete:hover {
-  border-color: #38C7BD;
-  color: #38C7BD;
-}
+@media(max-width: 979px) {
+  .todo {
+    display: block;
+  }
+  
+  .todo-sidebar,
+  .todo-main {
+    position: relative;
+    width: auto;
+  }
 
-.list__item {
-  height: 40px;
-  position: relative;
-}
+  .todo-main {
+    min-height: 100%;
+  }
 
-.list__item input {
-  background-color: transparent;
-  border-bottom: 1px solid #eee;
-  border-color: transparent;
-  /* Center vertically */
-  margin: 0 0 0 52px;
-  padding: 8px 0;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  width: calc(100% - 64px);
-}
+  .hidden-mobile  {
+    display: none;
+  }
 
-.list__item input:not(:disabled):focus,
-.list__item input:not(:disabled):hover {
-  border-bottom-color:#ddd;
-}
+  .site-header {
+    display: flex;
+  }
 
-.list__item input:disabled {
-  cursor: pointer;
-}
+  .site-header-text {
+    align-self: center;
+    left: 0;
+    position: absolute;
+    right: 0;
+  }
+  
+  .site-nav-toggle {
+    display: block;
+  }
 
-.list__item input:disabled:active {
-  color: #38C7BD; 
+  .site-nav-toggle div {
+    background-color: #fff;
+    height: 2px;
+    margin-bottom: 4px;
+  }
 }

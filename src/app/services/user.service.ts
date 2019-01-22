@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import HttpRequest from '../interfaces/HttpRequest';
 import User from '../classes/User';
 import Cookie from '../classes/Cookie';
+import Session from '../classes/Session';
 
 @Injectable({
   providedIn: 'root'
@@ -35,25 +36,20 @@ class UserService {
     return this.http.post<HttpRequest>('http://localhost:5000/todo/user/sendForgotPasswordEmail', data, {headers: this.headers});
   }
 
-  getUserFromCookie(): User {
-    var name = 'user' + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return JSON.parse(c.substring(name.length, c.length));
-      }
-    }
-    return null;
+  getUserInformation(session: Session): Observable<HttpRequest> {
+    return this.http.get<HttpRequest>(`http://localhost:5000/todo/user/getUserInformation?userId=${session.userId}`);
   }
 
-  setUserCookie(user: User): void {
-    const userData = JSON.stringify(user);
-    this.userCookie = new Cookie('user', userData, 30);
+  getSessionFromCookie(): Session {
+    const cookieData = Cookie.getCookie('session');
+    if(cookieData === '') {
+      return null;
+    }
+    return <Session>JSON.parse(cookieData);
+  }
+
+  setAuthenticationCookie(session: Session): void {
+    this.userCookie = new Cookie('session', JSON.stringify(session), 30);
   }
 }
 

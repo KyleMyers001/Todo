@@ -1,0 +1,63 @@
+.list-container {
+  position: relative;
+}
+
+@media(max-width: 979px) {
+  .list-container {
+    border-bottom: 1px solid #0E7FA6;
+  }
+}
+
+.list__item {
+  cursor: pointer;
+  height: 30px;
+  line-height: 30px;
+  position: relative;
+}
+
+.list__item p {
+  margin: 0;
+}
+
+.list-addBtn:hover,
+.list__item:hover {
+  background-color: rgba(255,255,255,0.08);
+}
+
+.list__item input:not(:disabled):focus,
+.list__item input:not(:disabled):hover {
+  border-bottom-color:#ddd;
+}
+
+.list-header,
+.list__item {
+  color: white;
+}
+
+.list-header {
+  display: flex;
+  height: 40px;
+  padding: 0 4rpx;
+  text-decoration: underline;
+}
+
+.list {
+  margin: 0;
+  padding: 0 0 16px;
+}
+
+.list-addBtn {
+  background-color: transparent;
+  color: white;
+  margin-left: auto;
+  z-index: 2;
+}
+
+.list-header-text {
+  font-size: 24px;;
+  left: 0;
+  margin: 4px 0 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+}

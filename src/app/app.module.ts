@@ -9,10 +9,12 @@ import { LoginComponent } from './components/login/login.component';
 import { TodoComponent } from './components/todo/todo.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { TaskComponent } from './components/task/task.component';
+import { ListComponent } from './components/list/list.component';
 
 
 const appRoutes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: TodoComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'login', component: LoginComponent },
   { path: 'todo', component: TodoComponent },
@@ -27,7 +29,9 @@ const appRoutes: Routes = [
     LoginComponent,
     TodoComponent,
     RegisterComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    TaskComponent,
+    ListComponent,
   ],
   imports: [
     FormsModule,

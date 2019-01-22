@@ -108,14 +108,12 @@ export class RegisterComponent {
     this.userService.registerUser(user).subscribe((request) => {
       if(request.success) {
         this.router.navigateByUrl('todo');
-        this.userService.setUserCookie(request.data);
-        // Store user information unencrypted in a cookie
+        this.userService.setAuthenticationCookie(request.data);
       } else {
         this.errors.main = <Error>{
           message: request.message,
           show: true
         }
-        // Display error message
       }
     });
   }

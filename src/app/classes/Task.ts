@@ -1,4 +1,4 @@
-class Item {
+class Task {
   _id: number;
   listId: string;
   name: string;
@@ -9,4 +9,4 @@ class Item {
   }
 }
 
-export default Item;
+export default Task;
