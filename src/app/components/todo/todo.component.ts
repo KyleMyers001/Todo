@@ -12,16 +12,48 @@ import {Router} from '@angular/router';
 export class TodoComponent {
   @ViewChild('listComponent') listComponent;
   @ViewChild('taskComponent') taskComponent;
-  showMobileMenu: boolean;
+  showSiteNav: boolean;
+  showLists: boolean;
+  showSiteNavBackBtn: boolean;
   user: User;
   constructor(private userService: UserService, private router: Router) {
     this.user = new User(null, null, null, null);
-    this.showMobileMenu = false;
+    this.showSiteNav = false;
+    this.showLists = false;
+    this.showSiteNavBackBtn = false;
     this.getUserInformation();
   }
 
-  toggleMobileMenu(): void {
-    this.showMobileMenu = !this.showMobileMenu;
+  toggleSiteNav(): void {
+    if(this.showLists) { // Hide everything
+      this.showSiteNav = false;
+      this.hideLists();
+    } else {
+      this.showSiteNav = !this.showSiteNav;
+    }
+  }
+
+  viewPreviousNavState(): void {
+    if(this.showLists) {
+      this.hideLists();
+      this.showSiteNav = true;
+    }
+  }
+
+  hideLists(): void {
+    this.showLists = false;
+    this.showSiteNavBackBtn = false;
+  }
+
+  displayLists(): void {
+    this.showLists = true;
+    this.showSiteNavBackBtn = true;
+    this.showSiteNav = false;
+  }
+
+  deleteActiveList(): void {
+    this.listComponent.deleteList(this.taskComponent.activeList);
+    // TODO: Change the current list too, and get the new tasks.
   }
 
   getUserInformation(): void {
@@ -39,6 +71,10 @@ export class TodoComponent {
       }
       this.routeToLogin();
     });
+  }
+
+  focusElement(element: HTMLElement): void {
+    element.focus();
   }
 
   routeToLogin(): void {

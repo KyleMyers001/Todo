@@ -51,6 +51,17 @@ button:active {
   max-width: 1080px;
 }
 
+.hidden {
+  display: none;
+}
+
+@media(max-width: 767px) {
+  .hidden-mobile  {
+    display: none;
+  }
+}
+
+
 input[type="email"],
 input[type="password"],
 input[type="text"] {

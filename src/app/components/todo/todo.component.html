@@ -10,19 +10,28 @@
   <div class="todo-sidebar">
     <h1 class="site-header">
       <span class="site-header-text">Todo</span>
-      <button class="site-nav-toggle" (click)="toggleMobileMenu();">
+      <button class="site-nav-toggle" (click)="toggleSiteNav();">
         <div></div>
         <div></div>
         <div></div> 
       </button>
     </h1>
-    <app-list [taskComponent]="taskComponent" [ngClass]="{'hidden-mobile': !showMobileMenu}"
+    <ul class="site-nav" [ngClass]="{'hidden': !showSiteNav}">
+      <li class="site-nav-item" (click)="focusElement(listName);">Edit List Name</li>
+      <li class="site-nav-item" (click)="deleteActiveList();">Delete List</li> 
+      <!-- TODO: Display a modal which requests confirmation before deleting a list . -->
+      <li class="site-nav-item" (click)="displayLists();">View Lists</li>
+    </ul>
+    <button class="site-nav-back-btn" [ngClass]="{'hidden': !showSiteNavBackBtn}" (click)="viewPreviousNavState();">
+      <i class="far fa-chevron-double-left"></i>
+    </button>
+    <app-list [taskComponent]="taskComponent" [ngClass]="{'hidden-mobile': !showLists}"
       #listComponent></app-list>
   </div>
 
   <div class="todo-main">
     <div class="status-bar">
-      <h2 class="status-bar__list-name" contenteditable="true" 
+      <h2 #listName class="status-bar__list-name" contenteditable="true" 
         (keydown)="listComponent.handleListKeypress($event);">{{this.taskComponent.activeList.name}}</h2>
       <p>Welcome, {{user.firstName}} {{user.lastName}}</p>
     </div>

@@ -46,6 +46,11 @@ export class ListComponent {
             return;
           }
         }
+
+        if(this.taskComponent.activeList === list) {
+      
+          this.changeList(this.lists[0]);
+        }
       }
     });
   }
