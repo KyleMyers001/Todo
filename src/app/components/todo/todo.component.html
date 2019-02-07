@@ -1,12 +1,40 @@
-<!-- 
-  Inspiration
+<div class="header">
+  <button class="header-menu-toggle">
+    <i class="header-menu-toggle-icon fal fa-user-circle"></i> 
+  </button>
+  <span class="header-user-name" [ngClass]="{'hidden-mobile': !listComponent.showTasksMobile}">
+    {{user.firstName}} {{user.lastName}}
+  </span>
+  <!-- <span class="header-list-name" [ngClass]="{'hidden': listComponent.showTasksMobile}">
+      {{taskComponent.activeList.name}}
+  </span> -->
+  <!-- <span class="header-list-name" [ngClass]="{'hidden': listComponent.showTasksMobile}">
+      {{taskComponent.activeList.name}}
+  </span> -->
+</div>
+<div class="main site-background">
+    <app-list [taskComponent]="taskComponent" #listComponent 
+      [ngClass]="{'hidden-mobile': listComponent.showTasksMobile}"></app-list>
 
-  1. Apple reminders: https://cdn.zapier.com/storage/photos/60225e6e85a57ecadeccf9b63d2ba669.png
-  A. Just worry about right section. Ignore the calendar for now.
+    <app-task #taskComponent [ngClass]="{'hidden-mobile': !listComponent.showTasksMobile}"></app-task>
+    <!-- <app-list [taskComponent]="taskComponent" #listComponent 
+    [ngClass]="{'hidden-mobile': true}"></app-list>
 
- -->
+  <app-task #taskComponent [ngClass]="{'hidden-mobile': false}"></app-task> -->
+</div>
 
-<div class="todo">
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="todo">
   <div class="todo-sidebar">
     <h1 class="site-header">
       <span class="site-header-text">Todo</span>
@@ -19,7 +47,6 @@
     <ul class="site-nav" [ngClass]="{'hidden': !showSiteNav}">
       <li class="site-nav-item" (click)="focusElement(listName);">Edit List Name</li>
       <li class="site-nav-item" (click)="deleteActiveList();">Delete List</li> 
-      <!-- TODO: Display a modal which requests confirmation before deleting a list . -->
       <li class="site-nav-item" (click)="displayLists();">View Lists</li>
     </ul>
     <button class="site-nav-back-btn" [ngClass]="{'hidden': !showSiteNavBackBtn}" (click)="viewPreviousNavState();">
@@ -38,4 +65,4 @@
     <app-task #taskComponent></app-task>
   </div>
   <br>
-</div>
+</div> -->

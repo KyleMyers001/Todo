@@ -13,6 +13,7 @@ export class ListComponent {
   autoSave: AutoSave;
   currentListId: number;
   lists: List[];
+  showTasksMobile: boolean;
   user: User;
   // @Input() user: User;
   @Input() taskComponent;
@@ -20,6 +21,7 @@ export class ListComponent {
     this.autoSave = new AutoSave(2000);
     this.currentListId = 1;
     this.lists = new Array();
+    this.showTasksMobile = false;
   }
 
   initializeLists(user: User):void {
@@ -59,6 +61,8 @@ export class ListComponent {
     this.taskComponent.activeList = list;
     this.taskComponent.activeList.tasks = new Array();
     this.taskComponent.getTasks();
+    this.showTasksMobile = true;
+    console.log(this.showTasksMobile);
   }
 
   addList(): void {

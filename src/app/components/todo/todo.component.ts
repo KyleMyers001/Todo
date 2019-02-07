@@ -13,42 +13,13 @@ export class TodoComponent {
   @ViewChild('listComponent') listComponent;
   @ViewChild('taskComponent') taskComponent;
   showSiteNav: boolean;
-  showLists: boolean;
   showSiteNavBackBtn: boolean;
   user: User;
   constructor(private userService: UserService, private router: Router) {
     this.user = new User(null, null, null, null);
     this.showSiteNav = false;
-    this.showLists = false;
     this.showSiteNavBackBtn = false;
     this.getUserInformation();
-  }
-
-  toggleSiteNav(): void {
-    if(this.showLists) { // Hide everything
-      this.showSiteNav = false;
-      this.hideLists();
-    } else {
-      this.showSiteNav = !this.showSiteNav;
-    }
-  }
-
-  viewPreviousNavState(): void {
-    if(this.showLists) {
-      this.hideLists();
-      this.showSiteNav = true;
-    }
-  }
-
-  hideLists(): void {
-    this.showLists = false;
-    this.showSiteNavBackBtn = false;
-  }
-
-  displayLists(): void {
-    this.showLists = true;
-    this.showSiteNavBackBtn = true;
-    this.showSiteNav = false;
   }
 
   deleteActiveList(): void {

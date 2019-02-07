@@ -1,4 +1,27 @@
-<div class="list-wrapper">
+<ul class="tasks">
+  <li class="new-task" (click)="addTask();">
+    <i class="new-task-icon fal fa-plus"></i>
+    <span class="new-task-text">Add a todo...</span>
+  </li>
+  <li class="task" *ngFor="let task of activeList.tasks">
+    <button class="task-complete-btn">
+    </button>
+    <!-- <span class="task-name">{{task.name}}</span> -->
+    <input #textbox class="task-name-input" type="text" value="{{task.name}}" (keydown)="handleTaskKeypress($event, task);">
+    <span class="task-date"></span>
+  </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="list-wrapper">
   <div class="list-wrapper__header-bar">
     <button class="add-task-btn" (click)="addTask();">Add Task</button>
   </div>
@@ -10,4 +33,4 @@
       <input #textbox type="text" value="{{task.name}}" (keydown)="handleTaskKeypress($event, task);">
     </li>
   </ul>
-</div>
+</div> -->

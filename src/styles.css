@@ -1,4 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --site-primary: #283148;
+  --site-alternate: #0E7FA6; 
+  --site-neutral: #bbbbbb;
+  --header-height: 40px;
+}
+
 a,
 body,
 button,
@@ -11,7 +18,7 @@ ul,
 li,
 input {
   font-family: 'Source Sans Pro', TimesNewRoman, 'Times New Roman';
-  font-size: 16px;
+  font-size: 14px;
 }
 
 body {
