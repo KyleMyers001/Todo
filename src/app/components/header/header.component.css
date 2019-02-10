@@ -1,0 +1,38 @@
+.header {
+  align-items: center;
+  background-color: var(--site-primary);
+  color: white;
+  display: flex;
+  height: var(--header-height);
+}
+
+.header-toggle-menu-btn,
+.header-back-btn, 
+.header-toggle-list-menu-btn {
+  background-color: transparent;
+  color: white;
+  height: var(--header-height);
+  padding: 0;
+  width: 44px;
+}
+
+.header-toggle-list-menu-icon {
+  font-size: 20px;
+}
+
+.header-back-btn-icon {
+  font-size: 15px;
+}
+
+.header-toggle-menu-icon {
+  font-size: 18px;
+}
+
+.header-list-name-input, 
+.header-user-name-input {
+  background-color: transparent;
+  border: 0;
+  color: #ffffff;
+  flex: 1;
+  padding: 0;
+}

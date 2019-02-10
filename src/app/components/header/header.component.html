@@ -1,0 +1,27 @@
+<div class="list-header header" [ngClass]="{'hidden-mobile': listComponent.showTasksMobile}">
+  <button class="header-toggle-menu-btn" (click)="menuComponent.toggleMenu();">
+    <i class="header-toggle-menu-icon fal fa-user-circle" [ngClass]="{'hidden': menuComponent.isMenuDisplayed}"></i>
+    <i class="header-toggle-menu-icon fal fa-times" [ngClass]="{'hidden': !menuComponent.isMenuDisplayed}"></i>
+  </button>
+
+  <input #userNameInput class="header-user-name-input" type="text" value="{{user.firstName}} {{user.lastName}}" 
+    (blur)="disableUserNameInput();" [disabled]="!enableUserNameInput"
+    (keydown)="handleUserNameKeypress($event, userNameInput);">
+</div>
+
+<div class="task-header header" [ngClass]="{'hidden': !listComponent.showTasksMobile}">
+  <button class="header-back-btn" (click)="goBack();">
+    <i class="header-back-btn-icon far fa-arrow-left"></i>
+  </button>
+
+  <input #listNameInput class="header-list-name-input" type="text" value="{{taskComponent.activeList.name}}" 
+    (blur)="disableListNameInput();" [disabled]="!enableListNameInput"
+    (keydown)="listComponent.handleListKeypress($event);">
+
+  <button class="header-toggle-list-menu-btn" (click)="menuComponent.toggleMenu();">
+    <i class="header-toggle-list-menu-icon fal fa-ellipsis-h-alt" 
+      [ngClass]="{'hidden': menuComponent.isMenuDisplayed}"></i>
+    <i class="header-toggle-list-menu-icon header-cancel-icon fal fa-times" 
+      [ngClass]="{'hidden': !menuComponent.isMenuDisplayed}"></i>
+  </button>
+</div>

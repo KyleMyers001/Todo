@@ -1,68 +1,20 @@
-<div class="header">
-  <button class="header-menu-toggle">
-    <i class="header-menu-toggle-icon fal fa-user-circle"></i> 
-  </button>
-  <span class="header-user-name" [ngClass]="{'hidden-mobile': !listComponent.showTasksMobile}">
-    {{user.firstName}} {{user.lastName}}
-  </span>
-  <!-- <span class="header-list-name" [ngClass]="{'hidden': listComponent.showTasksMobile}">
-      {{taskComponent.activeList.name}}
-  </span> -->
-  <!-- <span class="header-list-name" [ngClass]="{'hidden': listComponent.showTasksMobile}">
-      {{taskComponent.activeList.name}}
-  </span> -->
-</div>
+<app-header #headerComponent 
+  [listComponent]="listComponent" 
+  [menuComponent]="menuComponent"
+  [taskComponent]="taskComponent">
+</app-header>
 <div class="main site-background">
-    <app-list [taskComponent]="taskComponent" #listComponent 
-      [ngClass]="{'hidden-mobile': listComponent.showTasksMobile}"></app-list>
-
-    <app-task #taskComponent [ngClass]="{'hidden-mobile': !listComponent.showTasksMobile}"></app-task>
-    <!-- <app-list [taskComponent]="taskComponent" #listComponent 
-    [ngClass]="{'hidden-mobile': true}"></app-list>
-
-  <app-task #taskComponent [ngClass]="{'hidden-mobile': false}"></app-task> -->
+  <app-list #listComponent 
+    [ngClass]="{'hidden-mobile': listComponent.showTasksMobile}" 
+    [taskComponent]="taskComponent">
+  </app-list>
+  <app-task #taskComponent 
+    [ngClass]="{'hidden-mobile': !listComponent.showTasksMobile}">
+  </app-task>
+  <app-menu #menuComponent
+    [headerComponent]="headerComponent" 
+    [listComponent]="listComponent" 
+    [taskComponent]="taskComponent" 
+    [ngClass]="{'hidden': !menuComponent.isMenuDisplayed}">
+  </app-menu>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <div class="todo">
-  <div class="todo-sidebar">
-    <h1 class="site-header">
-      <span class="site-header-text">Todo</span>
-      <button class="site-nav-toggle" (click)="toggleSiteNav();">
-        <div></div>
-        <div></div>
-        <div></div> 
-      </button>
-    </h1>
-    <ul class="site-nav" [ngClass]="{'hidden': !showSiteNav}">
-      <li class="site-nav-item" (click)="focusElement(listName);">Edit List Name</li>
-      <li class="site-nav-item" (click)="deleteActiveList();">Delete List</li> 
-      <li class="site-nav-item" (click)="displayLists();">View Lists</li>
-    </ul>
-    <button class="site-nav-back-btn" [ngClass]="{'hidden': !showSiteNavBackBtn}" (click)="viewPreviousNavState();">
-      <i class="far fa-chevron-double-left"></i>
-    </button>
-    <app-list [taskComponent]="taskComponent" [ngClass]="{'hidden-mobile': !showLists}"
-      #listComponent></app-list>
-  </div>
-
-  <div class="todo-main">
-    <div class="status-bar">
-      <h2 #listName class="status-bar__list-name" contenteditable="true" 
-        (keydown)="listComponent.handleListKeypress($event);">{{this.taskComponent.activeList.name}}</h2>
-      <p>Welcome, {{user.firstName}} {{user.lastName}}</p>
-    </div>
-    <app-task #taskComponent></app-task>
-  </div>
-  <br>
-</div> -->

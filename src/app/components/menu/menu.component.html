@@ -1,0 +1,17 @@
+<ul #siteMenu class="site-menu">
+  <li class="site-menu-item" [ngClass]="{'hidden-mobile': listComponent.showTasksMobile}" 
+    (click)="headerComponent.enableRenamingOfUser();">
+    <i class="site-menu-item-icon fal fa-user-edit"></i>
+    <span class="site-menu-item-text">Change Your Name</span>
+  </li>
+  <li class="site-menu-item" [ngClass]="{'hidden-mobile': !listComponent.showTasksMobile}" 
+    (click)="headerComponent.enableRenamingOfList();">
+    <i class="site-menu-item-icon fal fa-edit"></i>
+    <span class="site-menu-item-text">Rename List</span>
+  </li>
+  <li class="site-menu-item" [ngClass]="{'hidden-mobile': !listComponent.showTasksMobile}" 
+    (click)="deleteActiveList();">
+    <i class="site-menu-item-icon fal fa-folder-times"></i>
+    <span class="site-menu-item-text">Delete List</span>
+  </li>
+</ul>

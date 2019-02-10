@@ -5,6 +5,7 @@ import HttpRequest from '../interfaces/HttpRequest';
 import User from '../classes/User';
 import Cookie from '../classes/Cookie';
 import Session from '../classes/Session';
+import SiteConfiguration from '../classes/SiteConfiguration';
 
 @Injectable({
   providedIn: 'root'
@@ -12,32 +13,34 @@ import Session from '../classes/Session';
 
 class UserService {
   headers: HttpHeaders;
+  siteConfiguration: SiteConfiguration;
   userCookie: Cookie;
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.siteConfiguration = new SiteConfiguration(true);
   }
 
   loginUser(user: User): Observable<HttpRequest> {
-    return this.http.post<HttpRequest>('http://localhost:5000/todo/user/loginUser', user, {headers: this.headers});
+    return this.http.post<HttpRequest>(`${this.siteConfiguration.apiURL}/user/loginUser`, user, {headers: this.headers});
   }
 
   registerUser(user: User): Observable<HttpRequest> {
-    return this.http.post<HttpRequest>('http://localhost:5000/todo/user/registerUser', user, {headers: this.headers});
+    return this.http.post<HttpRequest>(`${this.siteConfiguration.apiURL}/user/registerUser`, user, {headers: this.headers});
   }
 
   resetPassword(data: any) {
-    return this.http.post<HttpRequest>('http://localhost:5000/todo/user/resetPassword', data, {headers: this.headers});
+    return this.http.post<HttpRequest>(`${this.siteConfiguration.apiURL}/user/resetPassword`, data, {headers: this.headers});
   }
 
   sendForgotPasswordEmail(email: string): Observable<HttpRequest> {
     const data = {
       email: email
     }
-    return this.http.post<HttpRequest>('http://localhost:5000/todo/user/sendForgotPasswordEmail', data, {headers: this.headers});
+    return this.http.post<HttpRequest>(`${this.siteConfiguration.apiURL}/user/sendForgotPasswordEmail`, data, {headers: this.headers});
   }
 
   getUserInformation(session: Session): Observable<HttpRequest> {
-    return this.http.get<HttpRequest>(`http://localhost:5000/todo/user/getUserInformation?userId=${session.userId}`);
+    return this.http.get<HttpRequest>(`${this.siteConfiguration.apiURL}/user/getUserInformation?userId=${session.userId}`);
   }
 
   getSessionFromCookie(): Session {

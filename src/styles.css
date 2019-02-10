@@ -59,12 +59,12 @@ button:active {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 @media(max-width: 767px) {
   .hidden-mobile  {
-    display: none;
+    display: none !important;
   }
 }
 

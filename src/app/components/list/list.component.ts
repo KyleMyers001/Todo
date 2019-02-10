@@ -85,7 +85,7 @@ export class ListComponent {
     }
 
     const callback = () => {
-      this.updateList(textbox.innerText);
+      this.updateList(textbox.value);
     }
 
     this.autoSave.addItemToQueue(textbox, callback);

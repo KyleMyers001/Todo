@@ -13,18 +13,19 @@
   padding: 8px;
 }
 
+.task {
+  display: flex;
+}
+
 .list, 
 .new-list {
   height: 40px;
   line-height: 40px;
 }
 
-.task-icon,
 .new-task-icon {
-  display: inline-block;
   font-size: 15px;
   text-align: center;
-  width: 24px;
 }
 
 .task-complete-btn {
@@ -33,8 +34,13 @@
   border-radius: 2px;
   box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
   height: 16px;
-  margin-right: 8px;
   padding: 0;
+}
+
+.new-task-icon, 
+.task-complete-btn {
+  display: inline-block;
+  margin-right: 12px;
   width: 16px;
 }
 
@@ -42,6 +48,7 @@
   background-color: transparent;
   border: 0;
   color: #ffffff;
+  flex: 1;
   height: 17px;
   padding: 0;
   vertical-align: top;

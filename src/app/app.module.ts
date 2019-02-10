@@ -11,6 +11,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { TaskComponent } from './components/task/task.component';
 import { ListComponent } from './components/list/list.component';
+import { HeaderComponent } from './components/header/header.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 
 const appRoutes: Routes = [
@@ -32,6 +34,8 @@ const appRoutes: Routes = [
     ResetPasswordComponent,
     TaskComponent,
     ListComponent,
+    HeaderComponent,
+    MenuComponent,
   ],
   imports: [
     FormsModule,
