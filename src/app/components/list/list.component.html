@@ -1,26 +1,22 @@
 <ul class="lists">
-  <li class="list" (click)="changeList(list);" *ngFor="let list of lists">
+  <li class="list" (click)="changeList(list);" *ngFor="let list of lists" 
+    [ngClass]="{'active': list === taskComponent.activeList}">
     <i class="list-icon fal fa-folder"></i>
     <span class="list-name">{{list.name}}</span>
-    <span class="list-num-tasks"></span>
+    <!-- TODO: Figure out how to get the number of tasks -->
+    <!-- The data is not currently retrieving the number of tasks -->
+    <!-- The number of tasks is only known after the list is changed, 
+         and the tasks are retrieved in their own ajax call.
+    -->
+    <!-- <span class="list-num-tasks">{{list.tasks.length}}</span> -->
   </li>
-  <li class="new-list">
+  <li class="new-list" (click)="createEmptyList();">
     <i class="new-list-icon fal fa-plus"></i>
     <span class="new-list-text">New List</span>
   </li>
 </ul>
-
-
-<!-- <div class="list-container">
-  <h2 class="list-header text-center">
-    <p class="list-header-text">Lists</p>
-    <button class="list-addBtn" (click)="addList();">
-     <i class="fas fa-plus"></i>
-    </button>
-  </h2>
-  <ul class="list">
-    <li class="list__item text-center" *ngFor="let list of lists" (click)="changeList(list);">
-      <p>{{list.name}}</p>
-    </li>
-  </ul>
-</div> -->
+<div class="undo" (click)="undoDeleteList();" *ngIf="showUndo">
+  <i class="undo-icon fal fa-undo"></i>
+  <span class="undo-text">Undo</span>
+  <span class="undo-list-deleted-text">List Deleted</span>
+</div>

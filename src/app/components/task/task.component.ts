@@ -48,18 +48,14 @@ export class TaskComponent {
   }
 
   addTask(): void {
-    // if (event.key.toLowerCase() === 'enter') {
-    //   const name = textbox.value;
     const task = new Task(null, this.activeList._id, '');
     this.taskService.addTask(task).subscribe((request) => {
       if (request.success) {
         this.activeList.tasks.push(request.data);
-        // textbox.value = '';
       } else {
         // Show error in data.message
       }
     });
-    // }
   }
 
   deleteTask(task): void {
@@ -92,6 +88,8 @@ export class TaskComponent {
     // if (this.hasMoreItems) {
     //   this.loadingItems = true;
     //   this.hasMoreItems = false; // Prevent simulataneous calls
+
+    console.log('get tasks'); 
     this.taskService.getTasks(this.activeList._id, this.activeList.tasks.length).subscribe((request) => {
       if (request.success) {
         request.data.tasks.forEach((task) => {

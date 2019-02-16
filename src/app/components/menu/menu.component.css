@@ -8,12 +8,29 @@
   position: absolute;
   right: 0;
   top: 0;
+  z-index: 1000;
+}
+
+@media(min-width: 767px) {
+  .site-menu {
+    width: var(--sidebar-width);
+  }
 }
 
 .site-menu-item {
+  background-color: var(--site-primary);
   border-bottom: 1px solid rgb(255, 255, 255, 0.5);
+  cursor: pointer;
   height: 40px;
   line-height: 40px;
+}
+
+.site-menu-item:hover {
+  filter: brightness(90%);
+}
+
+.site-menu-item:active {
+  filter: brightness(110%);
 }
 
 .site-menu-item-icon {

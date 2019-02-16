@@ -1,16 +1,49 @@
 .lists {
   color: white;
-  margin-top: 0;
+  margin: 0;
+}
+
+@media(min-width: 768px) {
+  .lists {
+    background-color: rgba(187, 187, 187, 0.4);
+    bottom: 0;
+    position: fixed;
+    top: var(--header-height);
+    width: var(--sidebar-width);
+  }
 }
 
 .list,
 .new-list {
   background-color: rgba(14, 127, 166, 0.3);
+  cursor: pointer;
+  display: flex;
   margin-bottom: 1px;
 }
 
+@media(min-width: 768px) {
+  .list,
+  .new-list {
+    background-color: transparent;
+    color: var(--site-primary);
+    margin-bottom: 0;
+  }
+
+  .list.active,
+  .list:hover,
+  .list:active {
+    background-color: rgba(187, 187, 187, 0.4);
+  }
+
+  .list:not(.active):hover {
+    filter:brightness(110%);
+  }
+}
+
 .list, 
-.new-list {
+.new-list,
+.list-icon,
+.new-list-icon {
   height: 40px;
   line-height: 40px;
 }
@@ -21,4 +54,56 @@
   font-size: 15px;
   text-align: center;
   width: 44px;
+}
+
+.list-num-tasks {
+  margin-left: auto;
+  margin-right: 16px;
+}
+
+.undo {
+  background-color: var(--site-primary);
+  bottom: 0;
+  box-sizing: border-box;
+  color: var(--site-alternate);
+  cursor: pointer;
+  display: flex;
+  font-size: 18px;
+  left: 0;
+  padding: 0 16px;
+  position: fixed;
+  right: 0;
+}
+
+.undo,
+.undo-icon {
+  height: 40px;
+  line-height: 40px;
+}
+
+.undo-icon {
+  width: 28px;
+}
+
+.undo-list-deleted-text {
+  margin-left: auto;
+}
+
+.undo-text,
+.undo-list-deleted-text {
+  font-size: 18px;
+}
+
+@media(min-width: 768px) {
+  .undo {
+    width: var(--sidebar-width);
+  }
+
+  .undo-text {
+    font-size: 16px;
+  }
+
+  .undo-list-deleted-text {
+    font-size: 14px;
+  }
 }

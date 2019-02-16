@@ -4,6 +4,7 @@
   --site-alternate: #0E7FA6; 
   --site-neutral: #bbbbbb;
   --header-height: 40px;
+  --sidebar-width: 200px;
 }
 
 a,
@@ -64,6 +65,12 @@ button:active {
 
 @media(max-width: 767px) {
   .hidden-mobile  {
+    display: none !important;
+  }
+}
+
+@media(min-width: 768px) {
+  .hidden-tablet-desktop {
     display: none !important;
   }
 }

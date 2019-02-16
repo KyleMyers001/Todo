@@ -23,6 +23,9 @@ class Slider {
 
   calculateStartAndEndX(): void {
     this.startX = -this.container.clientWidth;
+    // this.startX = -this.element.clientWidth;
+    console.log(this.startX);
+    // so the start x is 0 if I use the menu?
     this.endX = 0;
   }
 
@@ -63,8 +66,15 @@ class Slider {
     this.animate(this.x, this.startX, callback);
   }
 
+  completeCallback(callback: Function): void {
+    if(callback !== null) {
+      callback();
+    }
+  }
+
   renderFrame(increment: number, frames: number, callback: Function): void {
     if(!this.isAnimationEnabled) {
+      this.completeCallback(callback);
       return;
     }
     this.x += increment;
@@ -72,8 +82,8 @@ class Slider {
     frames = frames - 1;
     if (frames > 0) {
       requestAnimationFrame(this.renderFrame.bind(this, increment, frames, callback));
-    } else if(callback !== null) {
-      callback();
+    } else {
+      this.completeCallback(callback);
     }
   }
 

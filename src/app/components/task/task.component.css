@@ -1,6 +1,7 @@
 .tasks {
   color: white;
-  margin-top: 8px;
+  margin: 8px auto 0;
+  max-width: 800px;
 }
 
 .task,

@@ -1,7 +1,11 @@
 <div class="list-header header" [ngClass]="{'hidden-mobile': listComponent.showTasksMobile}">
   <button class="header-toggle-menu-btn" (click)="menuComponent.toggleMenu();">
-    <i class="header-toggle-menu-icon fal fa-user-circle" [ngClass]="{'hidden': menuComponent.isMenuDisplayed}"></i>
-    <i class="header-toggle-menu-icon fal fa-times" [ngClass]="{'hidden': !menuComponent.isMenuDisplayed}"></i>
+    <i class="header-toggle-menu-icon fal fa-user-circle hidden-tablet-desktop" 
+      [ngClass]="{'hidden': menuComponent.isMenuDisplayed}"></i>
+    <i class="header-toggle-menu-icon fal fa-bars hidden-mobile"
+      [ngClass]="{'hidden': menuComponent.isMenuDisplayed}"></i>
+    <i class="header-toggle-menu-icon fal fa-times" 
+      [ngClass]="{'hidden': !menuComponent.isMenuDisplayed}"></i>
   </button>
 
   <input #userNameInput class="header-user-name-input" type="text" value="{{user.firstName}} {{user.lastName}}" 
@@ -9,7 +13,7 @@
     (keydown)="handleUserNameKeypress($event, userNameInput);">
 </div>
 
-<div class="task-header header" [ngClass]="{'hidden': !listComponent.showTasksMobile}">
+<div class="task-header header hidden-tablet-desktop" [ngClass]="{'hidden': !listComponent.showTasksMobile}">
   <button class="header-back-btn" (click)="goBack();">
     <i class="header-back-btn-icon far fa-arrow-left"></i>
   </button>

@@ -16,8 +16,16 @@ export class MenuComponent {
   isMenuDisplayed: boolean;
   ngAfterViewInit() {
     const menu = this.siteMenu.nativeElement;
-    const container = menu.parentElement.parentElement;
-    // this.slider = new Slider(container, 5000, menu);
+    // const container = menu.parentElement.parentElement; // This is the todo container
+    const container = menu.parentElement;
+
+
+    // It's probably the issue.  
+    // It's used for calculating the start and end X.
+    // That's my problem.
+    // Maybe I just check the width of the menu itself? 
+    // Why do I need the container?
+    // I don't think I do.
     this.slider = new Slider(container, 800, menu);
   }
 
@@ -43,7 +51,7 @@ export class MenuComponent {
 
   deleteActiveList(): void {
     this.listComponent.deleteList(this.taskComponent.activeList);
-    this.headerComponent.showMenu = false;
-    this.headerComponent.goBack();
+    this.hideMenu();
+    this.headerComponent.hideTasks();
   }
 }

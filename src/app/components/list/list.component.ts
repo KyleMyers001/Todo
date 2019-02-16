@@ -11,15 +11,15 @@ import User from 'src/app/classes/User';
 })
 export class ListComponent {
   autoSave: AutoSave;
-  currentListId: number;
+  deletedList: List;
   lists: List[];
   showTasksMobile: boolean;
+  showUndo: boolean;
   user: User;
   // @Input() user: User;
   @Input() taskComponent;
   constructor(private listService: ListService) { 
     this.autoSave = new AutoSave(2000);
-    this.currentListId = 1;
     this.lists = new Array();
     this.showTasksMobile = false;
   }
@@ -42,19 +42,24 @@ export class ListComponent {
   deleteList(list: List): void {
     this.listService.deleteList(list).subscribe((request) => {
       if (request.success) {
+        this.deletedList = list;
+        this.showUndo = true;
         for (let i = 0; i < this.lists.length; i++) {
           if (this.lists[i] === list) {
             this.lists.splice(i, 1);
-            return;
           }
         }
 
         if(this.taskComponent.activeList === list) {
-      
           this.changeList(this.lists[0]);
         }
       }
     });
+  }
+
+  undoDeleteList(): void {
+    this.addList(this.deletedList);
+    this.showUndo = false;
   }
 
   changeList(list: List): void {
@@ -62,16 +67,21 @@ export class ListComponent {
     this.taskComponent.activeList.tasks = new Array();
     this.taskComponent.getTasks();
     this.showTasksMobile = true;
-    console.log(this.showTasksMobile);
   }
 
-  addList(): void {
-    const list = new List('New List', this.user._id, new Array());
+  createEmptyList(): void {
+    const list = new List('Your List', this.user._id, new Array());
+    this.addList(list);
+  }
+
+  addList(list: List): void {
     this.listService.addList(list).subscribe((request) => {
       if (request.success) {
-        this.taskComponent.activeList = request.data;
-        this.taskComponent.activeList.tasks = new Array();
-        this.lists.push(this.taskComponent.activeList);
+        // this.taskComponent.activeList = request.data;
+        list = request.data;
+        this.lists.push(list);
+        this.changeList(list);
+        // this.taskComponent.activeList.tasks = new Array();
       } else {
         // Show error in data.message
       }

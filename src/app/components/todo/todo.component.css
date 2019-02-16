@@ -11,3 +11,20 @@
   position: absolute;
   width: 100%;
 }
+
+@media(min-width: 768px) {
+  .todo {
+    display: flex;
+  }
+
+  .main {
+    margin: 8px 8px 0;
+    width: calc(100vw - var(--sidebar-width) - 16px);
+  }
+
+  .sidebar {
+    background-color: #ffffff;
+    position: relative;
+    width: var(--sidebar-width);
+  }
+}
