@@ -1,4 +1,4 @@
-.form__main-error .forgot-password-link {
+.form-main-error .forgot-password-link {
   font-size: 16px;
   margin-top: 4px;
 }
@@ -21,7 +21,7 @@
   line-height: 40px;
 }
 
-.register__btn {
+.register-btn {
   background-color: transparent;
   border: 1px solid #fff;
   color: #fff;
@@ -29,7 +29,7 @@
   transition: background-color 0.2s ease-in, color 0.2s ease-in;
 }
 
-.register__btn:hover {
+.register-btn:hover {
   background-color: #eee;
   color: #444;
 }

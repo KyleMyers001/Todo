@@ -74,7 +74,7 @@ export class LoginComponent {
     }
 
 
-    const user = new User(this.email.value, this.password.value, '', '');
+    const user = new User(null, this.email.value, this.password.value, '', '');
     this.userService.loginUser(user).subscribe((request) => {
       if(request.success) {
         this.router.navigateByUrl('todo');

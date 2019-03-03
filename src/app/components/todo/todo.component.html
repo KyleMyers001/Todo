@@ -3,7 +3,7 @@
   [menuComponent]="menuComponent"
   [taskComponent]="taskComponent">
 </app-header>
-<div class="todo site-background">
+<div class="sidebar">
   <app-menu #menuComponent
     [headerComponent]="headerComponent" 
     [listComponent]="listComponent" 
@@ -11,12 +11,10 @@
     [ngClass]="{'hidden': !menuComponent.isMenuDisplayed}">
   </app-menu>
   <app-list #listComponent 
-    class="sidebar"
     [ngClass]="{'hidden-mobile': listComponent.showTasksMobile}" 
     [taskComponent]="taskComponent">
   </app-list>
-  <app-task #taskComponent 
-    class="main"
-    [ngClass]="{'hidden-mobile': !listComponent.showTasksMobile}">
-  </app-task>
+</div>
+<div class="main" [ngClass]="{'hidden-mobile': !listComponent.showTasksMobile}">
+  <app-task #taskComponent></app-task>
 </div>

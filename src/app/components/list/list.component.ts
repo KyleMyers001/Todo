@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import ListService from 'src/app/services/list.service';
 import AutoSave from '../../classes/AutoSave';
+import Fade from '../../classes/Fade';
 import List from '../../classes/List';
 import User from 'src/app/classes/User';
 
@@ -10,78 +11,133 @@ import User from 'src/app/classes/User';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent {
+  activeList: List;
+  allowRenaming: boolean;
   autoSave: AutoSave;
   deletedList: List;
+  fade: Fade;
   lists: List[];
   showTasksMobile: boolean;
-  showUndo: boolean;
+  shouldShowUndo: boolean;
   user: User;
-  // @Input() user: User;
+  @ViewChild('undo') undo;
   @Input() taskComponent;
+  ngAfterViewInit() {
+    this.fade = new Fade(this.undo.nativeElement, 1000, 0);
+  }
+
   constructor(private listService: ListService) { 
+    this.activeList = new List('', '', true, new Array());
     this.autoSave = new AutoSave(2000);
     this.lists = new Array();
-    this.showTasksMobile = false;
   }
 
   initializeLists(user: User):void {
     this.user = user;
     this.listService.getLists(this.user._id).subscribe((request) => {
-      console.log(request);
-     // if(request.data.lists.length > 0) {
-        this.taskComponent.activeList = request.data.lists[0];
-      // } else {
-      //   this.activeList = new List('Your list', this.user._id, new Array());
-      // }
-      this.taskComponent.activeList.tasks = new Array();
       this.lists = request.data.lists;
-      this.taskComponent.getTasks();
+      // this.lists = null; // TODO: Prevent error when data is null.
+      this.setActiveList();
     });
   }
 
+  setActiveList(): void {
+    const listId = this.getListIdInQueryString();
+    this.activeList = this.getListEqualToListId(listId);
+
+    if(this.activeList === null) {
+      this.activeList = this.lists[0];
+    } else {
+      this.showTasksMobile = true;
+    }
+
+    this.taskComponent.getTasks(this.activeList._id);
+  }
+
+  getListEqualToListId(listId: string): List {
+    let theList = null;
+    if(listId !== null) {
+      for(let list of this.lists) {
+        if(list._id === listId) {
+          theList = list;
+        }
+      }
+    }
+    return theList;
+  }
+
+  getListIdInQueryString(): string {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('listId');
+  }
+
   deleteList(list: List): void {
-    this.listService.deleteList(list).subscribe((request) => {
+    list.active = false;
+    this.listService.updateList(list).subscribe((request) => {
       if (request.success) {
         this.deletedList = list;
-        this.showUndo = true;
+        this.showUndo();
         for (let i = 0; i < this.lists.length; i++) {
           if (this.lists[i] === list) {
             this.lists.splice(i, 1);
           }
         }
-
-        if(this.taskComponent.activeList === list) {
-          this.changeList(this.lists[0]);
-        }
+        
+        this.changeList(this.lists[0]);
+        this.showTasksMobile = false;
       }
     });
   }
 
+  enableRenamingOfList(list: List): void {
+    this.allowRenaming = true;
+    const input = <HTMLElement>document.querySelector('.list.active input');
+    setTimeout(() => input.focus());
+  }
+
   undoDeleteList(): void {
-    this.addList(this.deletedList);
-    this.showUndo = false;
+    this.deletedList.active = true;
+    this.updateList(this.deletedList);
+    this.lists.push(this.deletedList);
+    this.changeList(this.deletedList);
+    this.hideUndo();
+  }
+  
+  showUndo(): void {
+    this.shouldShowUndo = true;
+    const callback = () => {
+      setTimeout(() => {
+        this.hideUndo();
+      }, 20000);
+    }
+    this.fade.fadeIn(callback);
+  }
+  
+  hideUndo(): void {
+    const callback = () => {
+      this.shouldShowUndo = false;
+    }
+    this.fade.fadeOut(callback);
   }
 
   changeList(list: List): void {
-    this.taskComponent.activeList = list;
-    this.taskComponent.activeList.tasks = new Array();
-    this.taskComponent.getTasks();
+    this.activeList = list;
+    this.taskComponent.getTasks(list._id);
     this.showTasksMobile = true;
+    window.history.replaceState('todo', 'Todo', `/todo?listId=${list._id}`);
   }
 
   createEmptyList(): void {
-    const list = new List('Your List', this.user._id, new Array());
+    const list = new List('Your List', this.user._id, true, new Array());
     this.addList(list);
   }
 
   addList(list: List): void {
     this.listService.addList(list).subscribe((request) => {
       if (request.success) {
-        // this.taskComponent.activeList = request.data;
         list = request.data;
         this.lists.push(list);
         this.changeList(list);
-        // this.taskComponent.activeList.tasks = new Array();
       } else {
         // Show error in data.message
       }
@@ -95,21 +151,21 @@ export class ListComponent {
     }
 
     const callback = () => {
-      this.updateList(textbox.value);
+      const name = textbox.value;
+      if(this.activeList.name !== name) {
+        this.activeList.name = name;
+        this.updateList(this.activeList);
+      }
     }
 
     this.autoSave.addItemToQueue(textbox, callback);
   }
 
-  handleListFocusOut(e) {
-    const textbox = e.target;
-    this.updateList(textbox.innerText);
+  disableListInput() {
+    this.allowRenaming = false;
   }
 
-  updateList(name: string) {
-    if(this.taskComponent.activeList.name !== name) {
-      this.taskComponent.activeList.name = name;
-      this.listService.updateList(this.taskComponent.activeList).subscribe((data) => { });
-    }
+  updateList(list: List) {
+    this.listService.updateList(list).subscribe((data) => { });
   }
 }

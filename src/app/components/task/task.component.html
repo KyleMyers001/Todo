@@ -3,10 +3,9 @@
     <i class="new-task-icon fal fa-plus"></i>
     <span class="new-task-text">Add a todo...</span>
   </li>
-  <li class="task" *ngFor="let task of activeList.tasks">
+  <li class="task" *ngFor="let task of tasks">
     <button class="task-complete-btn" (click)="deleteTask(task);">
     </button>
-    <input #textbox class="task-name-input" type="text" value="{{task.name}}" (keydown)="handleTaskKeypress($event, task);">
-    <span class="task-date"></span>
+    <input #textbox class="task-name-input" type="text" value="{{task.name}}" (keydown)="handleNameInputKeypress($event, task);">
   </li>
 </ul>

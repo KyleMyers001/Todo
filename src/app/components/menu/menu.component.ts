@@ -1,5 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import Slider from '../../classes/Slider';
+import SiteConfiguration from 'src/app/classes/SiteConfiguration';
+import { ListComponent } from '../list/list.component';
 
 @Component({
   selector: 'app-menu',
@@ -16,17 +18,9 @@ export class MenuComponent {
   isMenuDisplayed: boolean;
   ngAfterViewInit() {
     const menu = this.siteMenu.nativeElement;
-    // const container = menu.parentElement.parentElement; // This is the todo container
-    const container = menu.parentElement;
-
-
-    // It's probably the issue.  
-    // It's used for calculating the start and end X.
-    // That's my problem.
-    // Maybe I just check the width of the menu itself? 
-    // Why do I need the container?
-    // I don't think I do.
-    this.slider = new Slider(container, 800, menu);
+    const container = menu.parentElement.parentElement;
+    const slideDuration = 800;
+    this.slider = new Slider(container, slideDuration, menu);
   }
 
   showMenu(): void {
@@ -49,8 +43,17 @@ export class MenuComponent {
     }
   }
 
+  enableRenamingOfList(): void {
+    if(SiteConfiguration.isMobile()) {
+      this.headerComponent.enableRenamingOfList();
+    } else {
+      this.hideMenu();
+      this.listComponent.enableRenamingOfList();
+    }
+  }
+
   deleteActiveList(): void {
-    this.listComponent.deleteList(this.taskComponent.activeList);
+    this.listComponent.deleteList(this.listComponent.activeList);
     this.hideMenu();
     this.headerComponent.hideTasks();
   }

@@ -2,16 +2,29 @@
   color: white;
   margin: 8px auto 0;
   max-width: 800px;
+  padding: 0 8px;
 }
 
-.task,
-.new-task {
+@media(min-width: 768px) {
+  .tasks {
+    padding: 0;
+  }
+}
+
+.new-task,
+.task {
   background-color: rgba(14, 127, 166, 0.3);
   border-radius: 4px;
   margin-bottom: 1px;
-  margin-left: 8px;
-  margin-right: 8px;
   padding: 8px;
+}
+
+.new-task {
+  cursor: pointer;
+}
+
+.new-task:hover {
+  filter: brightness(110%);
 }
 
 .task {
@@ -45,12 +58,21 @@
   width: 16px;
 }
 
-.task-name-input {
+.task-name-input, 
+.task-date-input {
   background-color: transparent;
   border: 0;
   color: #ffffff;
-  flex: 1;
   height: 17px;
+  outline: none;
   padding: 0;
   vertical-align: top;
+}
+
+.task-name-input {
+  flex: 1;
+}
+
+.task-date-input {
+  text-align: right;
 }

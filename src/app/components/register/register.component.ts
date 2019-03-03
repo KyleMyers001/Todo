@@ -104,7 +104,7 @@ export class RegisterComponent {
     if(!valid) {
       return;
     }
-    const user = new User(this.email.value, this.password.value, this.firstName.value, this.lastName.value);
+    const user = new User(null, this.email.value, this.password.value, this.firstName.value, this.lastName.value);
     this.userService.registerUser(user).subscribe((request) => {
       if(request.success) {
         this.router.navigateByUrl('todo');

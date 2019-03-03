@@ -20,6 +20,18 @@ class UserService {
     this.siteConfiguration = new SiteConfiguration(true);
   }
 
+  getSessionFromCookie(): Session {
+    const cookieData = Cookie.getCookie('session');
+    if(cookieData === '') {
+      return null;
+    }
+    return <Session>JSON.parse(cookieData);
+  }
+
+  getUserInformation(session: Session): Observable<HttpRequest> {
+    return this.http.get<HttpRequest>(`${this.siteConfiguration.apiURL}/user/getUserInformation?userId=${session.userId}`);
+  }
+  
   loginUser(user: User): Observable<HttpRequest> {
     return this.http.post<HttpRequest>(`${this.siteConfiguration.apiURL}/user/loginUser`, user, {headers: this.headers});
   }
@@ -39,20 +51,12 @@ class UserService {
     return this.http.post<HttpRequest>(`${this.siteConfiguration.apiURL}/user/sendForgotPasswordEmail`, data, {headers: this.headers});
   }
 
-  getUserInformation(session: Session): Observable<HttpRequest> {
-    return this.http.get<HttpRequest>(`${this.siteConfiguration.apiURL}/user/getUserInformation?userId=${session.userId}`);
-  }
-
-  getSessionFromCookie(): Session {
-    const cookieData = Cookie.getCookie('session');
-    if(cookieData === '') {
-      return null;
-    }
-    return <Session>JSON.parse(cookieData);
-  }
-
   setAuthenticationCookie(session: Session): void {
     this.userCookie = new Cookie('session', JSON.stringify(session), 30);
+  }
+
+  updateUser(user: User): Observable<HttpRequest> {
+    return this.http.post<HttpRequest>(`${this.siteConfiguration.apiURL}/user/updateUser`, user, {headers: this.headers});
   }
 }
 

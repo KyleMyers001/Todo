@@ -1,33 +1,29 @@
 <div class="form-background">
   <div class="form-container">
     <form class="form" (submit)="loginUser(email, password);">
-      <div class="form__main-error" *ngIf="errors.main.show">
+      <div class="form-main-error" *ngIf="errors.main.show">
         <p><strong>{{errors.main.message}}</strong></p>
-        <p>Did you 
-          <a class="forgot-password-link" routerLink="/forgotPassword" routerLinkActive="active">forget your password?</a>
-        </p>
       </div>
       
-      <h1 class="form__header">Login</h1>
-      <div class="form__group">
-        <label class="form__label" for="email">Email:</label>
-        <input class="form__input" name="email" type="text" [formControl]="email" email required>
-        <p class="form__error" *ngIf="errors.email.show">{{errors.email.message}}</p>
+      <h1 class="form-header">Login</h1>
+      <div class="form-group">
+        <label class="form-label" for="email">Email:</label>
+        <input class="form-input" name="email" type="text" [formControl]="email" email required>
+        <p class="form-error" *ngIf="errors.email.show">{{errors.email.message}}</p>
       </div>
       <br>
-      <div class="form__group">
-        <label class="form__label" for="password">Password:</label>
-        <input class="form__input" name="password" type="password" [formControl]="password" required>
-        <p class="form__error" *ngIf="errors.password.show">{{errors.password.message}}</p>
+      <div class="form-group">
+        <label class="form-label" for="password">Password:</label>
+        <input class="form-input" name="password" type="password" [formControl]="password" required>
+        <p class="form-error" *ngIf="errors.password.show">{{errors.password.message}}</p>
       </div>
       <br>
-      <a class="forgot-password-link" routerLink="/forgotPassword" routerLinkActive="active">Forgot your password?</a>
-      <button class="form__submit" type="submit">Login</button>
+      <button class="form-submit" type="submit">Login</button>
     </form>
     <br>
     <div class="register text-center">
       <span>Don't have an account?</span>
-      <button routerLink="/register" routerLinkActive="active" class="register__btn">Sign up</button>
+      <button routerLink="/register" routerLinkActive="active" class="register-btn">Sign up</button>
     </div>
   </div>
 </div>

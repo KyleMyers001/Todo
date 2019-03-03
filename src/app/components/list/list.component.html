@@ -1,8 +1,14 @@
 <ul class="lists">
   <li class="list" (click)="changeList(list);" *ngFor="let list of lists" 
-    [ngClass]="{'active': list === taskComponent.activeList}">
+    [ngClass]="{'active': list === activeList, 'editable': list === activeList && allowRenaming}">
     <i class="list-icon fal fa-folder"></i>
-    <span class="list-name">{{list.name}}</span>
+    <input type="text" 
+      class="list-name" 
+      (blur)="disableListInput();"
+      (keydown)="handleListKeypress($event);"
+      value="{{list.name}}" 
+      [disabled]="!(list === activeList && allowRenaming)">
+    <!-- <span class="list-name">{{list.name}}</span> -->
     <!-- TODO: Figure out how to get the number of tasks -->
     <!-- The data is not currently retrieving the number of tasks -->
     <!-- The number of tasks is only known after the list is changed, 
@@ -15,7 +21,7 @@
     <span class="new-list-text">New List</span>
   </li>
 </ul>
-<div class="undo" (click)="undoDeleteList();" *ngIf="showUndo">
+<div #undo class="undo" (click)="undoDeleteList();" [ngClass]="{'hidden': !shouldShowUndo}">
   <i class="undo-icon fal fa-undo"></i>
   <span class="undo-text">Undo</span>
   <span class="undo-list-deleted-text">List Deleted</span>

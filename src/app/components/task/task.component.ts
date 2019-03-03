@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import TaskService from '../../services/task.service';
 import AutoSave from '../../classes/AutoSave';
 import Task from '../../classes/Task';
-import List from 'src/app/classes/List';
 
 @Component({
   selector: 'app-task',
@@ -10,48 +9,22 @@ import List from 'src/app/classes/List';
   styleUrls: ['./task.component.css']
 })
 export class TaskComponent {
-  @Input() activeList: List;
   autoSave: AutoSave;
   hasMoreTasks: boolean;
+  listId: string;
   loadingTasks: boolean;
+  tasks: Task[];
   constructor(private taskService: TaskService) { 
-    this.activeList = new List('', '', new Array());
     this.autoSave = new AutoSave(2000);
     this.hasMoreTasks = true;
     this.loadingTasks = false;
-    window.onscroll = () => {
-      const loadingIcon = document.querySelector('.loading');
-      if (this.isElementInViewport(loadingIcon)) {
-        this.getTasks();
-      }
-    }
-  }
-
-  isElementInViewport(el) {
-    var top = el.offsetTop;
-    var left = el.offsetLeft;
-    var width = el.offsetWidth;
-    var height = el.offsetHeight;
-
-    while (el.offsetParent) {
-      el = el.offsetParent;
-      top += el.offsetTop;
-      left += el.offsetLeft;
-    }
-
-    return (
-      top >= window.pageYOffset &&
-      left >= window.pageXOffset &&
-      (top + height) <= (window.pageYOffset + window.innerHeight) &&
-      (left + width) <= (window.pageXOffset + window.innerWidth)
-    );
   }
 
   addTask(): void {
-    const task = new Task(null, this.activeList._id, '');
+    const task = new Task(null, this.listId, '');
     this.taskService.addTask(task).subscribe((request) => {
       if (request.success) {
-        this.activeList.tasks.push(request.data);
+        this.tasks.push(request.data);
       } else {
         // Show error in data.message
       }
@@ -61,9 +34,9 @@ export class TaskComponent {
   deleteTask(task): void {
     this.taskService.deleteTask(task).subscribe((request) => {
       if (request.success) {
-        for (let i = 0; i < this.activeList.tasks.length; i++) {
-          if (this.activeList.tasks[i] === task) {
-            this.activeList.tasks.splice(i, 1);
+        for (let i = 0; i < this.tasks.length; i++) {
+          if (this.tasks[i] === task) {
+            this.tasks.splice(i, 1);
             return;
           }
         }
@@ -71,41 +44,49 @@ export class TaskComponent {
     });
   }
 
-  handleTaskKeypress(e, task) {
+  handleNameInputKeypress(e, task) {
     const textbox = e.target;
     if (e.key.toLowerCase() === 'enter') {
       textbox.blur();
     }
 
     const callback = () => {
-      this.updateTask(task, textbox.value);
+      task.name = textbox.value;
+      this.updateTask(task);
     }
 
     this.autoSave.addItemToQueue(textbox, callback);
   }
 
-  getTasks(): void {
-    // if (this.hasMoreItems) {
-    //   this.loadingItems = true;
-    //   this.hasMoreItems = false; // Prevent simulataneous calls
+  handleDateInputKeypress(e, task) {
+    const textbox = e.target;
+    if (e.key.toLowerCase() === 'enter') {
+      textbox.blur();
+    }
 
-    console.log('get tasks'); 
-    this.taskService.getTasks(this.activeList._id, this.activeList.tasks.length).subscribe((request) => {
+    const callback = () => {
+      task.dueDate = textbox.value;
+      this.updateTask(task);
+    }
+
+    this.autoSave.addItemToQueue(textbox, callback);
+  }
+
+  getTasks(listId: string): void {
+    this.tasks = new Array();
+    this.listId = listId;
+    this.taskService.getTasks(this.listId, this.tasks.length).subscribe((request) => {
       if (request.success) {
         request.data.tasks.forEach((task) => {
-          this.activeList.tasks.push(task);
+          this.tasks.push(task);
         })
         this.hasMoreTasks = request.data.hasMoreTasks;
       }
       this.loadingTasks = false;
     });
-    // }
   }
 
-  updateTask(task: Task, name: string) {
-    if(task.name !== name) {
-      task.name = name;
-      this.taskService.updateTask(task).subscribe((data) => { });
-    }
+  updateTask(task: Task) {
+    this.taskService.updateTask(task).subscribe((data) => { });
   }
 }

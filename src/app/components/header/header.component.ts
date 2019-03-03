@@ -18,11 +18,10 @@ export class HeaderComponent {
   autoSave: AutoSave;
   enableListNameInput: boolean;
   enableUserNameInput: boolean;
-  // showMenu: boolean;
   user: User;
   constructor(private userService: UserService, private router: Router) { 
     this.autoSave = new AutoSave(2000);
-    this.user = new User(null, null, null, null);
+    this.user = new User(null, null, null, null, null);
     this.getUserInformation();
   }
   
@@ -33,10 +32,30 @@ export class HeaderComponent {
     }
 
     const callback = () => {
-      console.log('Update user');
+      this.updateUserName(textbox.value)
     }
 
     this.autoSave.addItemToQueue(textbox, callback);
+  }
+
+  updateUserName(name: string) {
+    if(this.user.fullName() !== name) {
+      // TODO: Separate the name string into two parts for the first and last name.
+      // Then update the firstName and lastName below.
+      const nameFragments = name.split(' ');
+      const firstName = nameFragments[0];
+      let lastName = '';
+      nameFragments.forEach((nameFragment, index) => {
+        if(index > 0) {
+          lastName += `${nameFragment} `;
+        }
+      });
+
+      this.user.firstName = firstName;
+      this.user.lastName = lastName.trim();
+      console.log(this.user);
+      this.userService.updateUser(this.user).subscribe((data) => { });
+    }
   }
 
   disableListNameInput(): void {
@@ -49,10 +68,6 @@ export class HeaderComponent {
     this.menuComponent.hideMenu();
   }
 
-  // toggleMenu(): void {
-  //   this.showMenu = !this.showMenu;
-  // }
-
   getUserInformation(): void {
     const session = this.userService.getSessionFromCookie();
     if(session === null) {
@@ -62,7 +77,8 @@ export class HeaderComponent {
 
     this.userService.getUserInformation(session).subscribe((request) => {
       if(request.data.user) {
-        this.user = request.data.user;
+        const data = <User>request.data.user;
+        this.user = new User(data._id, data.email, data.password, data.firstName, data.lastName);
         this.listComponent.initializeLists(this.user);
         return;
       }
@@ -73,13 +89,13 @@ export class HeaderComponent {
   routeToLogin(): void {
     this.router.navigateByUrl('login');
   }
-  
 
   goBack(): void {
     if(this.menuComponent.isMenuDisplayed) {
       this.menuComponent.hideMenu();
     } else {
       this.hideTasks();
+      window.history.replaceState('todo', 'Todo', `/todo`);
     }
   }
 

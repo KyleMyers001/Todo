@@ -31,12 +31,23 @@
 
   .list.active,
   .list:hover,
-  .list:active {
+  .list:active,
+  .new-list:hover {
     background-color: rgba(187, 187, 187, 0.4);
   }
-
-  .list:not(.active):hover {
+  
+  .list:not(.active):hover,
+  .new-list:hover {
     filter:brightness(110%);
+  }
+
+  .list.editable {
+    background-color: rgba(14, 127, 166, 0.8);
+  }
+
+  .list.editable,
+  .list.editable .list-name {
+    color: white;
   }
 }
 
@@ -56,6 +67,23 @@
   width: 44px;
 }
 
+.list-name {
+  background: transparent;
+  border: 0;
+  color: white;
+  padding: 0;
+}
+
+@media(min-width: 768px) {
+  .list-name {
+    color: var(--site-primary);
+  }
+}
+
+.list-name:disabled {
+  cursor: pointer;
+}
+
 .list-num-tasks {
   margin-left: auto;
   margin-right: 16px;
@@ -64,7 +92,6 @@
 .undo {
   background-color: var(--site-primary);
   bottom: 0;
-  box-sizing: border-box;
   color: var(--site-alternate);
   cursor: pointer;
   display: flex;

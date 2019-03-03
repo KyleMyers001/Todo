@@ -25,7 +25,7 @@ class Cookie {
     return '';
   }
 
-  public setCookie(): void {
+  setCookie(): void {
     const date = new Date();
     date.setTime(date.getTime() + (this.expirationDays*24*60*60*1000));
     const expires = 'expires='+ date.toUTCString();

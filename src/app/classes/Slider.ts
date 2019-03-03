@@ -23,9 +23,6 @@ class Slider {
 
   calculateStartAndEndX(): void {
     this.startX = -this.container.clientWidth;
-    // this.startX = -this.element.clientWidth;
-    console.log(this.startX);
-    // so the start x is 0 if I use the menu?
     this.endX = 0;
   }
 

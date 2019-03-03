@@ -8,7 +8,7 @@
       [ngClass]="{'hidden': !menuComponent.isMenuDisplayed}"></i>
   </button>
 
-  <input #userNameInput class="header-user-name-input" type="text" value="{{user.firstName}} {{user.lastName}}" 
+  <input #userNameInput class="header-user-name-input" type="text" value="{{user.fullName()}}" 
     (blur)="disableUserNameInput();" [disabled]="!enableUserNameInput"
     (keydown)="handleUserNameKeypress($event, userNameInput);">
 </div>
@@ -18,7 +18,7 @@
     <i class="header-back-btn-icon far fa-arrow-left"></i>
   </button>
 
-  <input #listNameInput class="header-list-name-input" type="text" value="{{taskComponent.activeList.name}}" 
+  <input #listNameInput class="header-list-name-input" type="text" value="{{listComponent.activeList.name}}" 
     (blur)="disableListNameInput();" [disabled]="!enableListNameInput"
     (keydown)="listComponent.handleListKeypress($event);">
 

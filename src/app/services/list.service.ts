@@ -21,10 +21,6 @@ class ListService {
     return this.http.post<HttpRequest>(`${this.siteConfiguration.apiURL}/list/addList`, list, {headers: this.headers});
   }
 
-  deleteList(list: List): Observable<HttpRequest> {
-    return this.http.post<HttpRequest>(`${this.siteConfiguration.apiURL}/list/deleteList`, list, {headers: this.headers});
-  }
-
   getLists(userId: string): Observable<HttpRequest> {
     return this.http.get<HttpRequest>(`${this.siteConfiguration.apiURL}/list/getLists?userId=${userId}`);
   }

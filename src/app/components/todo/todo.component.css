@@ -1,30 +1,23 @@
-/* Site Colors 
- 1. Site Primary: #283148
- 2. Site Alternate: #0E7FA6
-*/
-
-.site-background {
+.main,
+.sidebar {
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.5)), linear-gradient(to bottom, rgba(14, 127, 166, 0.8), rgba(14, 127, 166, 0.8));
-  /* background-image: linear-gradient(var(--site-alternate), #FFFFFF);
-  opacity: 0.6; */
+  bottom: 0;
   min-height: calc(100% - var(--header-height));
   position: absolute;
+  top: var(--header-height);
   width: 100%;
 }
 
 @media(min-width: 768px) {
-  .todo {
-    display: flex;
-  }
-
-  .main {
-    margin: 8px 8px 0;
-    width: calc(100vw - var(--sidebar-width) - 16px);
+  .main { 
+    padding: 8px;
+    right: 0;
+    width: calc(100vw - var(--sidebar-width));
   }
 
   .sidebar {
-    background-color: #ffffff;
-    position: relative;
+    background: #ffffff;
+    position: absolute;
     width: var(--sidebar-width);
   }
 }
