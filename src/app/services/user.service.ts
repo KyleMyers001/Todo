@@ -17,7 +17,7 @@ class UserService {
   userCookie: Cookie;
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.siteConfiguration = new SiteConfiguration(true);
+    this.siteConfiguration = new SiteConfiguration();
   }
 
   getSessionFromCookie(): Session {

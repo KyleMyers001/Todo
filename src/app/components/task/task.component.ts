@@ -78,12 +78,20 @@ export class TaskComponent {
     this.taskService.getTasks(this.listId, this.tasks.length).subscribe((request) => {
       if (request.success) {
         request.data.tasks.forEach((task) => {
+          task.name =  this.htmlDecode(task.name);
           this.tasks.push(task);
         })
         this.hasMoreTasks = request.data.hasMoreTasks;
       }
       this.loadingTasks = false;
     });
+  }
+
+  htmlDecode(input): string {
+    var e = document.createElement('textarea');
+    e.innerHTML = input;
+    // handle case of empty input
+    return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
   }
 
   updateTask(task: Task) {

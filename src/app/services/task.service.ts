@@ -14,7 +14,7 @@ class TaskService {
   siteConfiguration: SiteConfiguration;
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.siteConfiguration = new SiteConfiguration(true);
+    this.siteConfiguration = new SiteConfiguration();
   }
 
   addTask(task: Task): Observable<HttpRequest> {

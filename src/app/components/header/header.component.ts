@@ -53,7 +53,6 @@ export class HeaderComponent {
 
       this.user.firstName = firstName;
       this.user.lastName = lastName.trim();
-      console.log(this.user);
       this.userService.updateUser(this.user).subscribe((data) => { });
     }
   }
