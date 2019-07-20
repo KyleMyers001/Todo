@@ -2,7 +2,7 @@ class SiteConfiguration {
   apiURL: string;
   constructor() {
     if(!this.isDev()) {
-      this.apiURL = 'https://kylemyersapi.net/todo';
+      this.apiURL = 'https://kylemyersapi.com/todo';
     } else {
       this.apiURL = 'http://localhost:5000/todo';
     }
