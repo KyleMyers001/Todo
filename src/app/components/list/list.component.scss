@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 .lists {
   color: white;
   margin: 0;
@@ -8,8 +10,8 @@
     background-color: rgba(187, 187, 187, 0.4);
     bottom: 0;
     position: fixed;
-    top: var(--header-height);
-    width: var(--sidebar-width);
+    top: $header-height;
+    width: $sidebar-width;
   }
 }
 
@@ -25,7 +27,7 @@
   .list,
   .new-list {
     background-color: transparent;
-    color: var(--site-primary);
+    color: $site-primary;
     margin-bottom: 0;
   }
 
@@ -62,9 +64,9 @@
 .list-icon,
 .new-list-icon {
   display: inline-block;
+  flex: 0 0 44px;
   font-size: 15px;
   text-align: center;
-  width: 44px;
 }
 
 .list-name {
@@ -76,12 +78,14 @@
 
 @media(min-width: 768px) {
   .list-name {
-    color: var(--site-primary);
+    color: $site-primary;
   }
 }
 
 .list-name:disabled {
   cursor: pointer;
+  opacity: 1; /* required on iOS */
+  -webkit-text-fill-color: $site-primary;
 }
 
 .list-num-tasks {
@@ -90,9 +94,9 @@
 }
 
 .undo {
-  background-color: var(--site-primary);
+  background-color: $site-primary;
   bottom: 0;
-  color: var(--site-alternate);
+  color: $site-alternate;
   cursor: pointer;
   display: flex;
   font-size: 18px;
@@ -123,7 +127,7 @@
 
 @media(min-width: 768px) {
   .undo {
-    width: var(--sidebar-width);
+    width: $sidebar-width;
   }
 
   .undo-text {

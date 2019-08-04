@@ -1,9 +1,11 @@
+@import "../../../variables.scss";
+
 .header {
   align-items: center;
-  background-color: var(--site-primary);
+  background-color: $site-primary;
   color: white;
   display: flex;
-  height: var(--header-height);
+  height: $header-height;
 }
 
 .header-toggle-menu-btn,
@@ -11,7 +13,7 @@
 .header-toggle-list-menu-btn {
   background-color: transparent;
   color: white;
-  height: var(--header-height);
+  height: $header-height;
   padding: 0;
   width: 44px;
 }

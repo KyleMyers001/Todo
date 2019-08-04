@@ -8,7 +8,7 @@ import User from 'src/app/classes/User';
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  styleUrls: ['./list.component.scss']
 })
 export class ListComponent {
   activeList: List;

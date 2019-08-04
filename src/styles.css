@@ -1,11 +1,11 @@
 /* TODO: CSS variables are a new feature of CSS. Use PostCSS to provide support for older browsers. */
-:root {
+/* :root {
   --header-height: 40px;
   --sidebar-width: 200px;
   --site-alternate: #0E7FA6; 
   --site-neutral: #bbbbbb;
   --site-primary: #283148;
-}
+} */
 
 a,
 body,

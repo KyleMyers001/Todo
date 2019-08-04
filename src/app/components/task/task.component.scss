@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 .tasks {
   color: white;
   margin: 8px auto 0;
@@ -44,7 +46,7 @@
 
 .task-complete-btn {
   background-color: #ffffff;
-  border: 1px solid var(--site-alternate);
+  border: 1px solid $site-alternate;
   border-radius: 2px;
   box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
   height: 16px;
