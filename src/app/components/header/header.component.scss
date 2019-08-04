@@ -38,3 +38,8 @@
   flex: 1;
   padding: 0;
 }
+
+.header-user-name-input:disabled {
+  opacity: 1;
+  -webkit-text-fill-color: #ffffff;
+}
