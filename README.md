@@ -4,6 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 A task management application developed in Angular.  The project is a work in progress.
 
+[Demo](https://kylemyers-todo.netlify.com/)
+
 ![alt text](https://github.com/KyleMyers001/Todo/blob/master/screenshots/Screenshot1.png)
 
 
