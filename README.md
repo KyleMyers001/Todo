@@ -8,6 +8,7 @@ A task management application developed in Angular.  The project is a work in pr
 
 ![alt text](https://github.com/KyleMyers001/Todo/blob/master/screenshots/Screenshot1.png)
 
+![alt text](https://github.com/KyleMyers001/Todo/blob/master/screenshots/taskmanager.jpg)
 
 ## Notes on running the application
 
