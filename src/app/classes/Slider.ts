@@ -55,7 +55,7 @@ class Slider {
     return timeFraction;
   }
 
-  update(timeFraction:number = 1): void {
+  update(timeFraction: number = 1): void {
     const moved = this.width * timeFraction;
     if (this.hasSlided) {
       this.x = moved - this.width;

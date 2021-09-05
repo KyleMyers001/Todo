@@ -45,7 +45,7 @@ class Fade {
     return timeFraction;
   }
 
-  update(timeFraction:number = 1): void {
+  update(timeFraction: number = 1): void {
     if (this.isFading) {
       this.opacity = 1 - timeFraction;
     } else {
