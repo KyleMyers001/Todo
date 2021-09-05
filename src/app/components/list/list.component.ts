@@ -23,7 +23,7 @@ export class ListComponent {
   @ViewChild('undo') undo;
   @Input() taskComponent;
   ngAfterViewInit() {
-    this.fade = new Fade(this.undo.nativeElement, 1000, 0);
+    this.fade = new Fade(this.undo.nativeElement, 500);
   }
 
   constructor(private listService: ListService) { 

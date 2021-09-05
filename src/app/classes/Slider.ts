@@ -2,28 +2,16 @@ class Slider {
   container: HTMLElement;
   duration: number;
   element: HTMLElement;
-  endX: number;
   hasSlided: boolean;
-  isAnimationEnabled: boolean;
-  framesPerSecond: number;
-  frames: number;
-  startX: number;
+  startTime: number;
   x: number;
+  width: number;
   constructor(container: HTMLElement, duration: number, element: HTMLElement) {
     this.container = container;
     this.duration = duration;
     this.element = element;
-    this.framesPerSecond = 60;
-    this.frames = Math.floor(this.duration / this.framesPerSecond);
-    this.isAnimationEnabled = true;
-    this.x = 0;
-    this.calculateStartAndEndX();
+    this.width = this.container.clientWidth;
     this.bindEvents();
-  }
-
-  calculateStartAndEndX(): void {
-    this.startX = -this.container.clientWidth;
-    this.endX = 0;
   }
 
   bindEvents(): void {
@@ -31,66 +19,56 @@ class Slider {
   }
 
   handleWindowResizing(): void {
-    this.calculateStartAndEndX();
-    this.disableAnimation();
-    if(this.hasSlided) {
-      this.x = this.endX;
-      this.update();
-    } else {
-      this.x = this.startX;
-      this.update();
-    }
-  }
-
-  disableAnimation(): void {
-    this.isAnimationEnabled = false;
-  }
-
-  enableAnimation(): void {
-    this.isAnimationEnabled = true;
+    this.width = this.container.clientWidth;
+    this.update();
   }
 
   slideIn(callback: Function): void {
-    this.x = this.startX;
     this.hasSlided = true;
-    this.enableAnimation();
-    this.animate(this.x, this.endX, callback);
+    this.animate(callback);
   }
 
   slideOut(callback: Function): void {
     this.hasSlided = false;
-    this.enableAnimation();
-    this.animate(this.x, this.startX, callback);
+    this.animate(callback);
   }
 
-  completeCallback(callback: Function): void {
-    if(callback !== null) {
-      callback();
-    }
+  animate(callback: Function): void {
+    this.startTime = window.performance.now();
+    requestAnimationFrame(this.renderFrame.bind(this, callback));
   }
 
-  renderFrame(increment: number, frames: number, callback: Function): void {
-    if(!this.isAnimationEnabled) {
-      this.completeCallback(callback);
-      return;
-    }
-    this.x += increment;
-    this.update();
-    frames = frames - 1;
-    if (frames > 0) {
-      requestAnimationFrame(this.renderFrame.bind(this, increment, frames, callback));
+  renderFrame(callback: Function): void {
+    const timeFraction = this.getTimeFraction();
+    this.update(timeFraction);
+    if (timeFraction < 1) {
+      requestAnimationFrame(this.renderFrame.bind(this, callback));
     } else {
       this.completeCallback(callback);
     }
   }
 
-  animate (from: number, to: number, callback: Function): void {
-    const increment = (to - from) / this.frames;
-    requestAnimationFrame(this.renderFrame.bind(this, increment, this.frames, callback));
+  getTimeFraction(): number {
+    const time = window.performance.now();
+    let timeFraction = (time - this.startTime) / this.duration;
+    if (timeFraction > 1) timeFraction = 1;
+    return timeFraction;
   }
 
-  update(): void {
-    this.element.style.transform = `translateX(${this.x}px)`
+  update(timeFraction:number = 1): void {
+    const moved = this.width * timeFraction;
+    if (this.hasSlided) {
+      this.x = moved - this.width;
+    } else {
+      this.x = -moved;
+    }
+    this.element.style.transform = `translateX(${this.x}px)`;
+  }
+
+  completeCallback(callback: Function): void {
+    if (callback !== null) {
+      callback();
+    }
   }
 }
 

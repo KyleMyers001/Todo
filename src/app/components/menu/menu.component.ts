@@ -19,7 +19,7 @@ export class MenuComponent {
   ngAfterViewInit() {
     const menu = this.siteMenu.nativeElement;
     const container = menu.parentElement.parentElement;
-    const slideDuration = 800;
+    const slideDuration = 250;
     this.slider = new Slider(container, slideDuration, menu);
   }
 

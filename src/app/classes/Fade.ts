@@ -1,50 +1,63 @@
 class Fade {
   duration: number;
   element: HTMLElement;
-  framesPerSecond: number;
-  frames: number;
+  isFading: boolean;
   opacity: number;
-  constructor(element: HTMLElement, duration: number, initialOpacity: number) {
+  startTime: number;
+  constructor(element: HTMLElement, duration: number) {
     this.duration = duration;
     this.element = element;
-    this.framesPerSecond = 60;
-    this.frames = Math.floor(this.duration / this.framesPerSecond);
-    this.opacity = initialOpacity;
-    this.update();
   }
-  
+
   getOpacityOfElement(): number {
     return Number(window.getComputedStyle(this.element, null).getPropertyValue('opacity'));
   }
 
   fadeIn(callback: Function): void {
-    this.opacity = this.getOpacityOfElement();
-    this.animate(this.opacity, 1, callback);
+    this.isFading = false;
+    this.animate(callback);
   }
 
   fadeOut(callback: Function): void {
-    this.opacity = this.getOpacityOfElement();
-    this.animate(this.opacity, 0, callback);
+    this.isFading = true;
+    this.animate(callback);
   }
 
-  renderFrame(increment: number, frames: number, callback: Function): void {
-    this.opacity += increment;
-    this.update();
-    frames = frames - 1;
-    if (frames > 0) {
-      requestAnimationFrame(this.renderFrame.bind(this, increment, frames, callback));
-    } else if (callback !== null) {
-      callback();
+  animate(callback: Function): void {
+    this.startTime = window.performance.now();
+    requestAnimationFrame(this.renderFrame.bind(this, callback));
+  }
+
+  renderFrame(callback: Function): void {
+    const timeFraction = this.getTimeFraction();
+    this.update(timeFraction);
+    if (timeFraction < 1) {
+      requestAnimationFrame(this.renderFrame.bind(this, callback));
+    } else {
+      this.completeCallback(callback);
     }
   }
 
-  animate (from: number, to: number, callback: Function): void {
-    const increment = (to - from) / this.frames;
-    requestAnimationFrame(this.renderFrame.bind(this, increment, this.frames, callback));
+  getTimeFraction(): number {
+    const time = window.performance.now();
+    let timeFraction = (time - this.startTime) / this.duration;
+    if (timeFraction > 1) timeFraction = 1;
+    return timeFraction;
   }
 
-  update(): void {
+  update(timeFraction:number = 1): void {
+    if (this.isFading) {
+      this.opacity = 1 - timeFraction;
+    } else {
+      this.opacity = timeFraction;
+    }
     this.element.style.opacity = this.opacity.toString();
+  }
+
+  completeCallback(callback: Function): void {
+    if (callback !== null) {
+      callback();
+    }
   }
 }
 
